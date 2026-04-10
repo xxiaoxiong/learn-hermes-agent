@@ -2,7 +2,7 @@
 
 > Understand the 19 core mechanisms of a production AI agent, one chapter at a time
 
-简体中文 | [English](./README.md)
+[简体中文](./README-zh.md) | [English](./README.md)
 
 ---
 

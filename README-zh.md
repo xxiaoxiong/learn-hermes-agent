@@ -2,7 +2,7 @@
 
 > 从零理解一个生产级 AI Agent 的 19 个核心机制
 
-[English](./README.md) | 简体中文
+[English](./README.md) | [简体中文](./README-zh.md)
 
 ---
 

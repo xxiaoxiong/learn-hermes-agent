@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "data-structures",
+    "locale": "zh",
+    "kind": "bridge",
+    "title": "Data Structures（核心数据结构速查）",
+    "summary": "> 学习 Hermes Agent，最容易迷路的地方往往不是功能太多，而是不知道“状态到底放在哪里”。这份文档把主线章节里反复出现的关键数据结构集中整理成一张状态地图，帮助你把 19 章重新拼成一个整体。",
+    "fileName": "data-structures.md",
+    "version": null
+  },
+  {
+    "slug": "glossary",
+    "locale": "zh",
+    "kind": "bridge",
+    "title": "Glossary（术语表）",
+    "summary": "> 这份术语表只收录 `learn-hermes-agent` 主线里最常出现、也最容易混淆的词。",
+    "fileName": "glossary.md",
+    "version": null
+  },
+  {
+    "slug": "h00-architecture-overview",
+    "locale": "zh",
+    "kind": "bridge",
+    "title": "h00 — Hermes Agent 全景架构",
+    "summary": "> 这是整个课程的地图。在深入每一章之前，先在脑子里建立一张 Hermes 的全局视图。",
+    "fileName": "h00-architecture-overview.md",
+    "version": null
+  },
+  {
+    "slug": "h01-agent-loop",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h01 — Agent Loop：while 循环驱动的持续执行引擎",
+    "summary": "> **核心洞察**：agent 不是\"一问一答\"——它是一个持续运行的循环，直到模型主动选择停止调用工具。",
+    "fileName": "h01-agent-loop.md",
+    "version": "h01"
+  },
+  {
+    "slug": "h02-tool-system",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h02 — Tool System：注册表解耦 schema 与 handler",
+    "summary": "> **核心洞察**：tool schema 是给模型的说明书，handler 是给代码的执行器——两者分离，才能\"不改主循环添新工具\"。",
+    "fileName": "h02-tool-system.md",
+    "version": "h02"
+  },
+  {
+    "slug": "h03-planning-todos",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h03 — Planning & Todos：agent-level tool 拦截 + 任务状态追踪",
+    "summary": "> **核心洞察**：todo 不是普通工具——它修改的是 agent 自身执行状态，在 ToolRegistry dispatch **之前**被主循环拦截处理。",
+    "fileName": "h03-planning-todos.md",
+    "version": "h03"
+  },
+  {
+    "slug": "h03a-agent-level-tools",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h03a — Agent-level Tools：为什么有些工具不该走普通注册表",
+    "summary": "> 这页是 `h03` 的延伸。主线章节告诉你 `todo` 会在主循环里被优先拦截；这份 bridge doc 要把这个设计再说透：**为什么有些工具不只是“能调用的能力”，而是 agent 自身控制面的组成部分。**",
+    "fileName": "h03a-agent-level-tools.md",
+    "version": "h03"
+  },
+  {
+    "slug": "h04-prompt-assembly",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h04 — Prompt Assembly：5 层 section 按优先级动态组装 system prompt",
+    "summary": "> **核心洞察**：system prompt 不是一次性写死的字符串——它是运行时根据文件和状态动态构建的，每层 section 有独立的优先级和条件。",
+    "fileName": "h04-prompt-assembly.md",
+    "version": "h04"
+  },
+  {
+    "slug": "h04a-prompt-caching",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h04a — Prompt Caching：为什么稳定前缀比“把所有信息都塞进 system prompt”更重要",
+    "summary": "> 这页是 `h04` 的延伸。主线章节讲了 PromptBuilder 如何把 prompt 组装成 5 层 section；这份 bridge doc 要解释另一个关键问题：**为什么 Hermes 会如此强调 prompt 的前缀稳定性，以及这件事为什么直接影响 skill 注入策略。**",
+    "fileName": "h04a-prompt-caching.md",
+    "version": "h04"
+  },
+  {
+    "slug": "h05-context-compression",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h05 — Context Compression：preflight 触发 + middle turns 摘要 + lineage 谱系",
+    "summary": "> **核心洞察**：压缩不是删除历史——\"中间摘要 + 保留最新 N 条\"才是正确姿势；`lineage_id` 保证谱系可追溯。",
+    "fileName": "h05-context-compression.md",
+    "version": "h05"
+  },
+  {
+    "slug": "h05a-lineage-model",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h05a — Lineage Model：为什么压缩后的 session 不能覆盖原历史",
+    "summary": "> 这页是 `h05` 的延伸。主线章节已经告诉你 context compression 会生成新的 `lineage_id`；这份 bridge doc 要把背后的设计讲透：**为什么压缩不是覆盖旧 session，而是生成一条新的谱系节点。**",
+    "fileName": "h05a-lineage-model.md",
+    "version": "h05"
+  },
+  {
+    "slug": "h06-session-storage",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h06 — Session Storage：SQLite + FTS5 全文索引持久化会话历史",
+    "summary": "> **核心洞察**：SQLite 不只是存储——FTS5 全文搜索让 agent 能\"记起\"过去的对话；`parent_session_id` 保证压缩谱系可追溯。",
+    "fileName": "h06-session-storage.md",
+    "version": "h06"
+  },
+  {
+    "slug": "h06a-session-search",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h06a — Session Search：为什么检索历史会话不只是“数据库查询”",
+    "summary": "> 这页是 `h06` 的延伸。主线章节讲了 SQLite + FTS5 如何保存和搜索 session；这份 bridge doc 要强调另一层关键理解：**当 `session_search` 被 agent 主动调用时，它不再只是数据层查询，而变成了 agent 的内部回忆机制。**",
+    "fileName": "h06a-session-search.md",
+    "version": "h06"
+  },
+  {
+    "slug": "h07-memory-system",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h07 — Memory System：跨会话持久记忆与 flush 时机",
+    "summary": "> **核心洞察**：上下文里的知识 ≠ 记忆——没写入 `MEMORY.md` 就等于没记住；flush 必须在 turn 结束前、压缩前执行。",
+    "fileName": "h07-memory-system.md",
+    "version": "h07"
+  },
+  {
+    "slug": "h07a-memory-vs-session",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h07a — Memory vs Session：为什么“存下完整历史”不等于“形成长期记忆”",
+    "summary": "> 这页是 `h07` 的延伸。主线章节已经说明了 `MEMORY.md` / `USER.md` 的作用；这份 bridge doc 要把另一个最容易混淆的边界讲清楚：**session storage 和 memory system 虽然都在“保存过去”，但它们保存的不是同一种东西。**",
+    "fileName": "h07a-memory-vs-session.md",
+    "version": "h07"
+  },
+  {
+    "slug": "h08-skills-system",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h08 — Skills System：skill 注入为 user message，维护 prompt cache",
+    "summary": "> **核心洞察**：skill 是操作指南，不是人格设定——注入为 user message 是为了不破坏 system prompt 的 cache 命中率。",
+    "fileName": "h08-skills-system.md",
+    "version": "h08"
+  },
+  {
+    "slug": "h08a-skill-injection-boundary",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h08a — Skill Injection Boundary：为什么 skill 是操作指南，而不是 system prompt 的延长线",
+    "summary": "> 这页是 `h08` 的延伸。主线章节已经解释了 skill 为什么用 user message 注入；这份 bridge doc 继续把边界往前推一步：**skill 和 system prompt、memory、plugin 看起来都在“影响 agent 行为”，但它们作用的层级完全不同。**",
+    "fileName": "h08a-skill-injection-boundary.md",
+    "version": "h08"
+  },
+  {
+    "slug": "h09-approval-permission",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h09 — Approval & Permission：危险操作拦截与四段 pipeline",
+    "summary": "> **核心洞察**：安全门不在工具内部——拦截点在工具调度层统一判断，保证所有工具都经过同一套权限逻辑。",
+    "fileName": "h09-approval-permission.md",
+    "version": "h09"
+  },
+  {
+    "slug": "h09a-approval-pipeline",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h09a — Approval Pipeline：为什么权限系统必须放在调度层而不是工具内部",
+    "summary": "> 这页是 `h09` 的延伸。主线章节已经给出了 deny → check → allow → ask 的四段 pipeline；这份 bridge doc 继续回答一个更底层的问题：**为什么 Hermes 要把权限判断放在工具调度层，而不是让每个工具自己决定什么算危险。**",
+    "fileName": "h09a-approval-pipeline.md",
+    "version": "h09"
+  },
+  {
+    "slug": "h10-error-recovery",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h10 — Error Recovery：fallback_providers 链与失败分层处理",
+    "summary": "> **核心洞察**：大多数失败不是任务失败——retry 和 fallback 是不同层级的响应；失败后重入循环继续才是正确姿势。",
+    "fileName": "h10-error-recovery.md",
+    "version": "h10"
+  },
+  {
+    "slug": "h10a-fallback-taxonomy",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h10a — Fallback Taxonomy：为什么 retry、fallback、continuation 不是同一种补救动作",
+    "summary": "> 这页是 `h10` 的延伸。主线章节已经讲了错误分类和 `fallback_providers`；这份 bridge doc 要再往前走一步：**当一次调用失败时，系统真正需要区分的不是“要不要重试”，而是“失败属于哪一层，以及下一步该在哪一层补救”。**",
+    "fileName": "h10a-fallback-taxonomy.md",
+    "version": "h10"
+  },
+  {
+    "slug": "h11-cli-architecture",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h11 — CLI Architecture：COMMAND_REGISTRY 驱动多端 slash command",
+    "summary": "> **核心洞察**：slash command 不是函数调用——它是带路由规则的命令描述符，同一份 registry 驱动所有端（CLI / Gateway / Telegram）。",
+    "fileName": "h11-cli-architecture.md",
+    "version": "h11"
+  },
+  {
+    "slug": "h12-gateway-system",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h12 — Gateway System：GatewayRunner 统一接入 15 个平台",
+    "summary": "> **核心洞察**：平台适配层 ≠ agent 逻辑——adapter 只负责格式转换，AIAgent 对平台完全无感。",
+    "fileName": "h12-gateway-system.md",
+    "version": "h12"
+  },
+  {
+    "slug": "h13-cron-scheduler",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h13 — Cron Scheduler：带完整 Agent 能力的定时任务",
+    "summary": "> **核心洞察**：cron job 不是 shell 脚本——它是一个带完整 agent 能力的定时任务，可绑定 skill 作为执行上下文。",
+    "fileName": "h13-cron-scheduler.md",
+    "version": "h13"
+  },
+  {
+    "slug": "h14-hook-system",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h14 — Hook System：不改主循环扩展 agent 行为",
+    "summary": "> **核心洞察**：hook 只能观察和注解，不能替代主循环的控制流——这是插件可扩展性的设计边界。",
+    "fileName": "h14-hook-system.md",
+    "version": "h14"
+  },
+  {
+    "slug": "h15-subagent-delegation",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h15 — Subagent Delegation：IterationBudget 共享与上下文隔离",
+    "summary": "> **核心洞察**：子 agent 的关键是干净的上下文，不是独立的 API 调用——context isolation 才是 delegation 的核心。",
+    "fileName": "h15-subagent-delegation.md",
+    "version": "h15"
+  },
+  {
+    "slug": "h16-provider-runtime",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h16 — Provider Runtime：(provider, model) → api_mode 映射",
+    "summary": "> **核心洞察**：provider 抽象层不是 if-else——它是 `(provider, model) → (api_mode, key, url)` 的映射，支持 18+ provider。",
+    "fileName": "h16-provider-runtime.md",
+    "version": "h16"
+  },
+  {
+    "slug": "h17-mcp-integration",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h17 — MCP Integration：外部工具与原生工具共用同一注册表",
+    "summary": "> **核心洞察**：MCP 工具不是\"外挂\"——它进入同一个注册表，走同一条 dispatch 路径，agent 看不出区别。",
+    "fileName": "h17-mcp-integration.md",
+    "version": "h17"
+  },
+  {
+    "slug": "h18-plugin-system",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h18 — Plugin System：不 fork 代码扩展 Hermes",
+    "summary": "> **核心洞察**：plugin 不是 skill——plugin 注册工具和钩子，skill 注入操作指南；两者边界清晰，不可互换。",
+    "fileName": "h18-plugin-system.md",
+    "version": "h18"
+  },
+  {
+    "slug": "h19-rl-trajectories",
+    "locale": "zh",
+    "kind": "chapter",
+    "title": "h19 — RL & Trajectories：ShareGPT 轨迹生成与训练数据流水线",
+    "summary": "> **核心洞察**：不是所有轨迹都值得训练——过滤和格式化才是数据生成流水线的核心。",
+    "fileName": "h19-rl-trajectories.md",
+    "version": "h19"
+  }
+]

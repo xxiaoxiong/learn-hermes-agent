@@ -59,6 +59,12 @@ body {
   transition: background 0.2s ease, color 0.2s ease;
 }
 
+select,
+option {
+  color: var(--text);
+  background: var(--bg);
+}
+
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -67,11 +73,11 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--scrollbar);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--scrollbar-hover);
 }
 
 ::selection {
@@ -87,6 +93,7 @@ body {
 [data-theme="light"] .bg-\[\#080808\] { background-color: #fafafa; }
 [data-theme="light"] .bg-\[\#080808\]\/80 { background-color: rgba(250,250,250,0.88); }
 [data-theme="light"] .bg-\[\#080808\]\/85 { background-color: rgba(250,250,250,0.92); }
+[data-theme="light"] .bg-\[\#080808\]\/90 { background-color: rgba(250,250,250,0.95); }
 
 /* Text colors */
 [data-theme="light"] .text-white { color: #0f0f0f; }
@@ -104,9 +111,16 @@ body {
 [data-theme="light"] .text-white\/15 { color: rgba(0,0,0,0.18); }
 [data-theme="light"] .text-white\/10 { color: rgba(0,0,0,0.12); }
 
+/* Text colors (extra) */
+[data-theme="light"] .text-white\/35 { color: rgba(0,0,0,0.36); }
+
 /* Background colors */
 [data-theme="light"] .bg-white\/\[0\.02\] { background-color: rgba(0,0,0,0.025); }
+[data-theme="light"] .bg-white\/\[0\.03\] { background-color: rgba(0,0,0,0.03); }
 [data-theme="light"] .bg-white\/\[0\.04\] { background-color: rgba(0,0,0,0.04); }
+[data-theme="light"] .bg-white\/\[0\.06\] { background-color: rgba(0,0,0,0.05); }
+[data-theme="light"] .bg-white\/\[0\.07\] { background-color: rgba(0,0,0,0.06); }
+[data-theme="light"] .bg-white\/\[0\.08\] { background-color: rgba(0,0,0,0.07); }
 [data-theme="light"] .bg-white\/5  { background-color: rgba(0,0,0,0.05); }
 [data-theme="light"] .bg-white\/10 { background-color: rgba(0,0,0,0.07); }
 
@@ -118,8 +132,10 @@ body {
 [data-theme="light"] .border-white\/20 { border-color: rgba(0,0,0,0.2); }
 
 /* Hover variants */
-[data-theme="light"] .hover\:bg-white\/5:hover    { background-color: rgba(0,0,0,0.05); }
+[data-theme="light"] .hover\:bg-white\/5:hover         { background-color: rgba(0,0,0,0.05); }
+[data-theme="light"] .hover\:bg-white\/\[0\.03\]:hover { background-color: rgba(0,0,0,0.04); }
 [data-theme="light"] .hover\:bg-white\/\[0\.04\]:hover { background-color: rgba(0,0,0,0.05); }
+[data-theme="light"] .hover\:bg-white\/\[0\.07\]:hover { background-color: rgba(0,0,0,0.07); }
 [data-theme="light"] .hover\:border-white\/15:hover { border-color: rgba(0,0,0,0.18); }
 [data-theme="light"] .hover\:border-white\/30:hover { border-color: rgba(0,0,0,0.3); }
 [data-theme="light"] .hover\:text-white\/50:hover { color: rgba(0,0,0,0.5); }
@@ -152,3 +168,28 @@ body {
 
 /* Hero glow: keep visible */
 [data-theme="light"] .bg-indigo-600\/10 { background-color: rgba(79,70,229,0.12); }
+
+/* ── Article (Learn tab markdown) light mode ──────── */
+/* Tailwind [&_p]:text-white/65 generates a different CSS class than .text-white\/65
+   so we override at the element level directly */
+[data-theme="light"] article h1,
+[data-theme="light"] article h2,
+[data-theme="light"] article h3,
+[data-theme="light"] article h4 { color: #0f0f0f !important; }
+[data-theme="light"] article p,
+[data-theme="light"] article li { color: rgba(0,0,0,0.65) !important; }
+[data-theme="light"] article strong { color: #0f0f0f !important; }
+[data-theme="light"] article em { color: rgba(0,0,0,0.72) !important; }
+[data-theme="light"] article code { color: #059669 !important; background: rgba(0,0,0,0.06) !important; }
+[data-theme="light"] article pre { background: #f3f4f6 !important; border-color: rgba(0,0,0,0.08) !important; }
+[data-theme="light"] article pre code { color: rgba(0,0,0,0.75) !important; background: transparent !important; }
+[data-theme="light"] article blockquote { color: rgba(0,0,0,0.5) !important; border-color: rgba(99,102,241,0.4) !important; }
+[data-theme="light"] article a { color: #4f46e5 !important; }
+[data-theme="light"] article th { color: rgba(0,0,0,0.5) !important; border-color: rgba(0,0,0,0.1) !important; }
+[data-theme="light"] article td { color: rgba(0,0,0,0.6) !important; border-color: rgba(0,0,0,0.06) !important; }
+[data-theme="light"] article hr { border-color: rgba(0,0,0,0.08) !important; }
+[data-theme="light"] select,
+[data-theme="light"] option {
+  background: #fafafa;
+  color: #0f0f0f;
+}

@@ -69,12 +69,19 @@ export default async function HomePage({
     <div className="min-h-screen bg-[#080808] text-white">
       {/* ── Navbar ── */}
       <header className="sticky top-0 z-20 border-b border-white/[0.06] bg-[#080808]/80 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3">
+        <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between px-6 py-3">
           <div className="flex items-center gap-2">
             <div className="h-5 w-5 rounded bg-gradient-to-br from-indigo-500 to-purple-600" />
             <span className="text-sm font-semibold tracking-tight">Learn Hermes Agent</span>
           </div>
           <div className="flex items-center gap-3">
+            {/* Extra nav links */}
+            <div className="hidden sm:flex items-center gap-1">
+              <Link href={`/${locale}/timeline`} className="rounded-md px-2.5 py-1 text-xs text-white/35 hover:bg-white/5 hover:text-white/65 transition-all">时间线</Link>
+              <Link href={`/${locale}/layers`} className="rounded-md px-2.5 py-1 text-xs text-white/35 hover:bg-white/5 hover:text-white/65 transition-all">分层视图</Link>
+              <Link href={`/${locale}/compare`} className="rounded-md px-2.5 py-1 text-xs text-white/35 hover:bg-white/5 hover:text-white/65 transition-all">Compare</Link>
+              <Link href={`/${locale}/docs`} className="rounded-md px-2.5 py-1 text-xs text-white/35 hover:bg-white/5 hover:text-white/65 transition-all">Docs</Link>
+            </div>
             {/* Language switcher */}
             <div className="flex items-center gap-0.5 rounded-md border border-white/[0.06] p-0.5">
               <Link
@@ -169,8 +176,9 @@ export default async function HomePage({
       </section>
 
       {/* ── Chapter List ── */}
-      <main className="mx-auto max-w-5xl px-6 py-14 space-y-14">
-        {LAYER_ORDER.map((layerId) => {
+      <main className="mx-auto w-full max-w-[1400px] px-6 py-14">
+        <div className="mx-auto w-full max-w-[1120px] space-y-14">
+          {LAYER_ORDER.map((layerId) => {
           const lid = layerId as LayerId;
           const layer = LAYERS[layerId];
           const cfg = LAYER_CONFIG[lid];
@@ -233,6 +241,7 @@ export default async function HomePage({
             </section>
           );
         })}
+        </div>
       </main>
 
       {/* ── Footer ── */}
