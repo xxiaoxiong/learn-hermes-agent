@@ -1,0 +1,35 @@
+{
+  "nav": {
+    "home": "首页",
+    "chapters": "章节",
+    "timeline": "时间线"
+  },
+  "home": {
+    "title": "Learn Hermes Agent",
+    "subtitle": "从零理解一个生产级 AI Agent 的 19 个核心机制",
+    "description": "本项目是 Hermes Agent 的配套教学课程。每章只增加一个新概念，循序渐进。",
+    "startLearning": "开始学习",
+    "viewSource": "查看源码"
+  },
+  "chapter": {
+    "coreAddition": "核心新增",
+    "keyInsight": "关键洞察",
+    "focus": "先看这里",
+    "confusion": "常见误区",
+    "goal": "学完能做到",
+    "learnTab": "学习",
+    "codeTab": "代码",
+    "deepDiveTab": "深度解析",
+    "hermesSource": "Hermes 源码",
+    "teachingImpl": "教学实现",
+    "realSource": "真实源码片段",
+    "prev": "上一章",
+    "next": "下一章"
+  },
+  "layers": {
+    "core": "Layer 1 — 核心单 Agent",
+    "hardening": "Layer 2 — 生产加固",
+    "runtime": "Layer 3 — 多平台运行时",
+    "platform": "Layer 4 — 高级平台能力"
+  }
+}

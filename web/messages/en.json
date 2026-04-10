@@ -1,0 +1,35 @@
+{
+  "nav": {
+    "home": "Home",
+    "chapters": "Chapters",
+    "timeline": "Timeline"
+  },
+  "home": {
+    "title": "Learn Hermes Agent",
+    "subtitle": "Understand 19 core mechanisms of a production AI agent",
+    "description": "A structured teaching companion for Hermes Agent. One new concept per chapter.",
+    "startLearning": "Start Learning",
+    "viewSource": "View Source"
+  },
+  "chapter": {
+    "coreAddition": "Core Addition",
+    "keyInsight": "Key Insight",
+    "focus": "Focus Here First",
+    "confusion": "Common Confusion",
+    "goal": "What You'll Be Able To Do",
+    "learnTab": "Learn",
+    "codeTab": "Code",
+    "deepDiveTab": "Deep Dive",
+    "hermesSource": "Hermes Source",
+    "teachingImpl": "Teaching Implementation",
+    "realSource": "Real Source Snippet",
+    "prev": "Previous",
+    "next": "Next"
+  },
+  "layers": {
+    "core": "Layer 1 — Core Single-Agent",
+    "hardening": "Layer 2 — Production Hardening",
+    "runtime": "Layer 3 — Multi-Platform Runtime",
+    "platform": "Layer 4 — Advanced Platform"
+  }
+}
