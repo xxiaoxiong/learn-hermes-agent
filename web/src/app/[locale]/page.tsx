@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { LAYER_ORDER, LAYERS, VERSION_META } from "@/lib/constants";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 type LayerId = "core" | "hardening" | "runtime" | "platform";
 
@@ -73,13 +74,31 @@ export default async function HomePage({
             <div className="h-5 w-5 rounded bg-gradient-to-br from-indigo-500 to-purple-600" />
             <span className="text-sm font-semibold tracking-tight">Learn Hermes Agent</span>
           </div>
-          <div className="flex items-center gap-4">
-            <Link
-              href={locale === "zh" ? "/en" : "/zh"}
-              className="rounded-md px-2.5 py-1 text-xs text-white/40 hover:bg-white/5 hover:text-white/70 transition-all"
-            >
-              {locale === "zh" ? "EN" : "中文"}
-            </Link>
+          <div className="flex items-center gap-3">
+            {/* Language switcher */}
+            <div className="flex items-center gap-0.5 rounded-md border border-white/[0.06] p-0.5">
+              <Link
+                href="/en"
+                className={`rounded px-2.5 py-1 text-xs transition-all ${
+                  locale === "en"
+                    ? "bg-white/[0.08] text-white/80"
+                    : "text-white/30 hover:text-white/60"
+                }`}
+              >
+                English
+              </Link>
+              <Link
+                href="/zh"
+                className={`rounded px-2.5 py-1 text-xs transition-all ${
+                  locale === "zh"
+                    ? "bg-white/[0.08] text-white/80"
+                    : "text-white/30 hover:text-white/60"
+                }`}
+              >
+                中文
+              </Link>
+            </div>
+            <ThemeToggle />
             <a
               href="https://github.com/your-org/learn-hermes-agent"
               target="_blank"
@@ -121,10 +140,11 @@ export default async function HomePage({
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link
               href={`/${locale}/h01`}
-              className="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-[#080808] hover:bg-white/90 transition-colors"
+              style={{ background: 'var(--text)', color: 'var(--bg)' }}
+              className="inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold hover:opacity-90 transition-all"
             >
               {t("home.startLearning")}
-              <span className="text-[#080808]/50">→</span>
+              <span style={{ opacity: 0.5 }}>→</span>
             </Link>
             <a
               href="https://github.com/your-org/learn-hermes-agent"

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { VERSION_META, VERSION_ORDER, type Version } from "@/lib/constants";
 import { CHAPTER_GUIDES } from "@/lib/chapter-guides";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export function generateStaticParams() {
   const locales = ["zh", "en"];
@@ -134,15 +135,32 @@ export default async function VersionPage({
             )}
           </div>
 
-          {/* Right: locale + progress */}
+          {/* Right: locale + progress + theme */}
           <div className="flex items-center gap-3">
-            <span className="text-xs text-white/20">{chapterNum} / {VERSION_ORDER.length}</span>
-            <Link
-              href={locale === "zh" ? `/en/${v}` : `/zh/${v}`}
-              className="rounded-md px-2 py-1 text-xs text-white/30 hover:bg-white/5 hover:text-white/50 transition-all"
-            >
-              {locale === "zh" ? "EN" : "中文"}
-            </Link>
+            <span className="text-xs text-white/20 hidden sm:inline">{chapterNum} / {VERSION_ORDER.length}</span>
+            <div className="flex items-center gap-0.5 rounded-md border border-white/[0.06] p-0.5">
+              <Link
+                href={`/en/${v}`}
+                className={`rounded px-2 py-0.5 text-xs transition-all ${
+                  locale === "en"
+                    ? "bg-white/[0.08] text-white/80"
+                    : "text-white/30 hover:text-white/60"
+                }`}
+              >
+                EN
+              </Link>
+              <Link
+                href={`/zh/${v}`}
+                className={`rounded px-2 py-0.5 text-xs transition-all ${
+                  locale === "zh"
+                    ? "bg-white/[0.08] text-white/80"
+                    : "text-white/30 hover:text-white/60"
+                }`}
+              >
+                中文
+              </Link>
+            </div>
+            <ThemeToggle />
           </div>
         </div>
       </header>
