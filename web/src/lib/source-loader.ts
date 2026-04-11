@@ -46,8 +46,26 @@ const DOC_FILE_MAP: Record<Version, string> = {
   h19: "h19-rl-trajectories.md",
 };
 
-/** Project root = web/../  (one level above process.cwd() which is web/) */
-const PROJECT_ROOT = path.join(process.cwd(), "..");
+/** Project root = one level above web/.
+ *  Locally:  process.cwd() = .../learn-hermes-agent/web  → .. works
+ *  Vercel:   process.cwd() = /vercel/path0/web            → .. works
+ *  Fallback: walk up from __dirname until we find agents/  */
+function findProjectRoot(): string {
+  // 1. Try cwd/..
+  const fromCwd = path.resolve(process.cwd(), "..");
+  if (fs.existsSync(path.join(fromCwd, "agents"))) return fromCwd;
+  // 2. Walk up from this file's directory
+  let dir = __dirname;
+  for (let i = 0; i < 10; i++) {
+    const parent = path.dirname(dir);
+    if (parent === dir) break;
+    dir = parent;
+    if (fs.existsSync(path.join(dir, "agents"))) return dir;
+  }
+  // 3. Fallback
+  return fromCwd;
+}
+const PROJECT_ROOT = findProjectRoot();
 
 export function getSourceCode(version: Version): string | null {
   const rel = SOURCE_FILE_MAP[version];

@@ -2,7 +2,19 @@ import fs from "fs";
 import path from "path";
 import type { Version } from "./constants";
 
-const PROJECT_ROOT = path.join(process.cwd(), "..");
+function findProjectRoot(): string {
+  const fromCwd = path.resolve(process.cwd(), "..");
+  if (fs.existsSync(path.join(fromCwd, "docs"))) return fromCwd;
+  let dir = __dirname;
+  for (let i = 0; i < 10; i++) {
+    const parent = path.dirname(dir);
+    if (parent === dir) break;
+    dir = parent;
+    if (fs.existsSync(path.join(dir, "docs"))) return dir;
+  }
+  return fromCwd;
+}
+const PROJECT_ROOT = findProjectRoot();
 const DOCS_ROOT = path.join(PROJECT_ROOT, "docs");
 
 export interface DocEntry {
