@@ -3,11 +3,12 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
-import type { Version } from "@/lib/constants";
+import type { Version, I18nStr } from "@/lib/constants";
 import { ARCH_BLUEPRINTS, type SliceId } from "@/data/architecture-blueprints";
 import { EXECUTION_FLOWS } from "@/data/execution-flows";
 import { DESIGN_DECISIONS } from "@/lib/design-decisions";
 import type { BridgeDocMeta } from "@/lib/bridge-docs";
+import { ExecutionFlowStepper } from "@/components/visualizations/ExecutionFlowStepper";
 
 type Tab = "learn" | "code" | "deepdive";
 
@@ -18,10 +19,11 @@ interface Props {
   docHtml: string | null;
   hermesSource: string[];
   guide: {
-    focus: string;
-    confusion: string;
-    goal: string;
+    focus: I18nStr;
+    confusion: I18nStr;
+    goal: I18nStr;
   };
+  locale: string;
   bridgeDocs: BridgeDocMeta[];
 }
 
@@ -32,6 +34,7 @@ export function ChapterClient({
   docHtml,
   hermesSource,
   guide,
+  locale: localeProp,
   bridgeDocs,
 }: Props) {
   const [tab, setTab] = useState<Tab>(docHtml ? "learn" : "code");
@@ -93,9 +96,9 @@ export function ChapterClient({
               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
                 <span className="text-xl">📝</span>
               </div>
-              <p className="text-sm text-white/30">文档正在编写中</p>
+              <p className="text-sm text-white/30">{t("chapter.docPlaceholder")}</p>
               <p className="mt-1.5 font-mono text-xs text-white/15">
-                docs/zh/{version}.md
+                docs/{version}.md
               </p>
             </div>
           )}
@@ -130,7 +133,7 @@ export function ChapterClient({
                   {t("chapter.focus")}
                 </span>
               </div>
-              <p className="text-sm leading-relaxed text-white/65">{guide.focus}</p>
+              <p className="text-sm leading-relaxed text-white/65">{localeProp === "zh" ? guide.focus.zh : guide.focus.en}</p>
             </div>
             <div className="rounded-2xl border border-amber-500/15 bg-amber-500/[0.04] p-5">
               <div className="mb-3 flex items-center gap-2">
@@ -139,7 +142,7 @@ export function ChapterClient({
                   {t("chapter.confusion")}
                 </span>
               </div>
-              <p className="text-sm leading-relaxed text-white/65">{guide.confusion}</p>
+              <p className="text-sm leading-relaxed text-white/65">{localeProp === "zh" ? guide.confusion.zh : guide.confusion.en}</p>
             </div>
             <div className="rounded-2xl border border-emerald-500/15 bg-emerald-500/[0.04] p-5">
               <div className="mb-3 flex items-center gap-2">
@@ -148,7 +151,7 @@ export function ChapterClient({
                   {t("chapter.goal")}
                 </span>
               </div>
-              <p className="text-sm leading-relaxed text-white/65">{guide.goal}</p>
+              <p className="text-sm leading-relaxed text-white/65">{localeProp === "zh" ? guide.goal.zh : guide.goal.en}</p>
             </div>
           </div>
 
@@ -175,8 +178,8 @@ export function ChapterClient({
           {/* Architecture Blueprint */}
           <ArchBlueprint version={version} />
 
-          {/* Execution flow */}
-          <ExecutionFlowPanel version={version} />
+          {/* Execution flow (interactive stepper) */}
+          <ExecutionFlowStepper version={version} />
 
           {/* Design decisions */}
           <DesignDecisionsPanel version={version} />
@@ -202,11 +205,12 @@ const SLICE_ORDER: SliceId[] = ["mainline", "control", "state", "lanes"];
 
 function ArchBlueprint({ version }: { version: Version }) {
   const locale = useLocale();
+  const t = useTranslations();
   const blueprint = ARCH_BLUEPRINTS[version];
   if (!blueprint) return null;
 
   const visibleSlices = SLICE_ORDER.filter((s) => (blueprint.slices[s] ?? []).length > 0);
-  const pick = (t: { zh: string; en: string }) => locale === "zh" ? t.zh : t.en;
+  const pick = (s: { zh: string; en: string }) => locale === "zh" ? s.zh : s.en;
 
   return (
     <div className="space-y-4">
@@ -215,7 +219,7 @@ function ArchBlueprint({ version }: { version: Version }) {
         <div className="mb-2 flex items-center gap-2">
           <div className="h-1 w-4 rounded-full bg-indigo-400/60" />
           <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/25">
-            {locale === "zh" ? "这章真正新增了什么" : "What This Chapter Actually Adds"}
+            {t("chapter.whatsNew")}
           </span>
         </div>
         <p className="text-sm leading-relaxed text-white/70">{pick(blueprint.summary)}</p>
@@ -242,7 +246,7 @@ function ArchBlueprint({ version }: { version: Version }) {
                         <span className="font-mono text-xs font-semibold text-white/80">{pick(item.name)}</span>
                         {item.fresh && (
                           <span className="rounded-full bg-white/[0.08] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white/40">
-                            {locale === "zh" ? "新增" : "NEW"}
+                            {t("chapter.newTag")}
                           </span>
                         )}
                       </div>
@@ -262,7 +266,7 @@ function ArchBlueprint({ version }: { version: Version }) {
           <div className="mb-4 flex items-center gap-2">
             <div className="h-1 w-4 rounded-full bg-white/20" />
             <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/25">
-              {locale === "zh" ? "主回流路径" : "Primary Handoff Path"}
+              {t("chapter.handoffPath")}
             </span>
           </div>
           <div className="grid gap-3 sm:grid-cols-3">
@@ -285,10 +289,11 @@ function ArchBlueprint({ version }: { version: Version }) {
 
 function ExecutionFlowPanel({ version }: { version: Version }) {
   const locale = useLocale();
+  const t = useTranslations();
   const flow = EXECUTION_FLOWS[version];
   if (!flow) return null;
 
-  const pick = (t: { zh: string; en: string }) => locale === "zh" ? t.zh : t.en;
+  const pick = (s: { zh: string; en: string }) => locale === "zh" ? s.zh : s.en;
   const laneStyle: Record<string, string> = {
     input: "border-sky-500/20 bg-sky-500/[0.05] text-sky-300",
     decision: "border-violet-500/20 bg-violet-500/[0.05] text-violet-300",
@@ -307,7 +312,7 @@ function ExecutionFlowPanel({ version }: { version: Version }) {
       <div className="mb-4 flex items-center gap-2">
         <div className="h-1 w-4 rounded-full bg-cyan-400/70" />
         <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/25">
-          {locale === "zh" ? "执行流" : "Execution Flow"}
+          {t("chapter.executionFlow")}
         </span>
       </div>
       <p className="mb-5 text-sm leading-relaxed text-white/65">{pick(flow.summary)}</p>
@@ -333,17 +338,18 @@ function ExecutionFlowPanel({ version }: { version: Version }) {
 
 function DesignDecisionsPanel({ version }: { version: Version }) {
   const locale = useLocale();
+  const t = useTranslations();
   const items = DESIGN_DECISIONS[version] ?? [];
   if (items.length === 0) return null;
 
-  const pick = (t: { zh: string; en: string }) => locale === "zh" ? t.zh : t.en;
+  const pick = (s: { zh: string; en: string }) => locale === "zh" ? s.zh : s.en;
 
   return (
     <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5">
       <div className="mb-4 flex items-center gap-2">
         <div className="h-1 w-4 rounded-full bg-fuchsia-400/70" />
         <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/25">
-          {locale === "zh" ? "设计决策" : "Design Decisions"}
+          {t("chapter.designDecisions")}
         </span>
       </div>
       <div className="grid gap-3 lg:grid-cols-2">
@@ -352,11 +358,11 @@ function DesignDecisionsPanel({ version }: { version: Version }) {
             <h3 className="text-sm font-semibold text-white/88">{pick(item.title)}</h3>
             <div className="mt-3 space-y-3">
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/25">{locale === "zh" ? "为什么这样做" : "Why"}</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/25">{t("chapter.whyLabel")}</p>
                 <p className="mt-1 text-xs leading-5 text-white/58">{pick(item.why)}</p>
               </div>
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/25">{locale === "zh" ? "代价 / 取舍" : "Tradeoff"}</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/25">{t("chapter.tradeoffLabel")}</p>
                 <p className="mt-1 text-xs leading-5 text-white/58">{pick(item.tradeoff)}</p>
               </div>
             </div>
@@ -375,44 +381,36 @@ function BridgeDocsPanel({
   bridgeDocs: BridgeDocMeta[];
 }) {
   const locale = useLocale();
+  const t = useTranslations();
   if (bridgeDocs.length === 0) return null;
 
   const pick = (value: Partial<Record<"zh" | "en", string>>) => value[locale as "zh" | "en"] ?? value.zh ?? value.en ?? "";
 
   return (
-    <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5">
-      <div className="mb-4 flex items-center gap-2">
-        <div className="h-1 w-4 rounded-full bg-indigo-400/70" />
-        <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/25">
-          {locale === "zh" ? "延伸桥接阅读" : "Bridge Docs"}
-        </span>
-      </div>
-      <p className="mb-5 text-sm leading-relaxed text-white/58">
-        {locale === "zh"
-          ? `如果你在 ${version.toUpperCase()} 这里开始感觉主线和外围机制缠在一起，这些补充文档最适合拿来重新校准边界。`
-          : `If ${version.toUpperCase()} is where the mainline and supporting mechanisms begin to blur, these bridge docs are the best reset points.`}
+    <section className="space-y-3">
+      <h3 className="text-sm font-semibold uppercase tracking-wide text-white/40">
+        {t("chapter.bridgeDocs")}
+      </h3>
+      <p className="text-sm text-white/40">
+        {t("chapter.bridgeDocsIntro")}
       </p>
-      <div className="grid gap-3 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {bridgeDocs.map((doc) => (
           <Link
             key={doc.slug}
             href={`/${locale}/docs/${doc.slug}`}
-            className="group rounded-[22px] border border-white/[0.06] bg-white/[0.025] p-4 transition-all hover:border-white/14 hover:bg-white/[0.05]"
+            className="group rounded-xl border border-white/[0.08] bg-white/[0.02] p-4 transition-colors hover:border-white/15 hover:bg-white/[0.04]"
           >
-            <div className="flex items-center justify-between gap-3">
-              <span className="rounded-full border border-white/[0.08] px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-white/35">
-                {doc.slug}
-              </span>
-              <span className="rounded-full border border-indigo-500/20 bg-indigo-500/[0.08] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-indigo-200/80">
+            <div className="flex items-center gap-2">
+              <span className="rounded-full border border-white/[0.08] bg-white/[0.04] px-2 py-0.5 text-[11px] font-medium text-white/50">
                 {pick(doc.badge)}
               </span>
             </div>
-            <h3 className="mt-4 text-base font-semibold text-white/88 group-hover:text-white">{pick(doc.title)}</h3>
-            <p className="mt-2 text-sm leading-6 text-white/45">{pick(doc.summary)}</p>
-            <p className="mt-4 text-xs leading-5 text-white/34">{pick(doc.whenToRead)}</p>
+            <h4 className="mt-2 text-sm font-semibold text-white/85">{pick(doc.title)}</h4>
+            <p className="mt-1 text-xs leading-5 text-white/40">{pick(doc.summary)}</p>
           </Link>
         ))}
       </div>
-    </div>
+    </section>
   );
 }

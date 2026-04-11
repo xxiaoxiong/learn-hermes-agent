@@ -20,11 +20,11 @@
   {
     "slug": "h00-architecture-overview",
     "locale": "zh",
-    "kind": "bridge",
+    "kind": "chapter",
     "title": "h00 — Hermes Agent 全景架构",
     "summary": "> 这是整个课程的地图。在深入每一章之前，先在脑子里建立一张 Hermes 的全局视图。",
     "fileName": "h00-architecture-overview.md",
-    "version": null
+    "version": "h00"
   },
   {
     "slug": "h01-agent-loop",
@@ -56,11 +56,11 @@
   {
     "slug": "h03a-agent-level-tools",
     "locale": "zh",
-    "kind": "chapter",
+    "kind": "bridge",
     "title": "h03a — Agent-level Tools：为什么有些工具不该走普通注册表",
     "summary": "> 这页是 `h03` 的延伸。主线章节告诉你 `todo` 会在主循环里被优先拦截；这份 bridge doc 要把这个设计再说透：**为什么有些工具不只是“能调用的能力”，而是 agent 自身控制面的组成部分。**",
     "fileName": "h03a-agent-level-tools.md",
-    "version": "h03"
+    "version": null
   },
   {
     "slug": "h04-prompt-assembly",
@@ -74,11 +74,11 @@
   {
     "slug": "h04a-prompt-caching",
     "locale": "zh",
-    "kind": "chapter",
+    "kind": "bridge",
     "title": "h04a — Prompt Caching：为什么稳定前缀比“把所有信息都塞进 system prompt”更重要",
     "summary": "> 这页是 `h04` 的延伸。主线章节讲了 PromptBuilder 如何把 prompt 组装成 5 层 section；这份 bridge doc 要解释另一个关键问题：**为什么 Hermes 会如此强调 prompt 的前缀稳定性，以及这件事为什么直接影响 skill 注入策略。**",
     "fileName": "h04a-prompt-caching.md",
-    "version": "h04"
+    "version": null
   },
   {
     "slug": "h05-context-compression",
@@ -92,11 +92,11 @@
   {
     "slug": "h05a-lineage-model",
     "locale": "zh",
-    "kind": "chapter",
+    "kind": "bridge",
     "title": "h05a — Lineage Model：为什么压缩后的 session 不能覆盖原历史",
     "summary": "> 这页是 `h05` 的延伸。主线章节已经告诉你 context compression 会生成新的 `lineage_id`；这份 bridge doc 要把背后的设计讲透：**为什么压缩不是覆盖旧 session，而是生成一条新的谱系节点。**",
     "fileName": "h05a-lineage-model.md",
-    "version": "h05"
+    "version": null
   },
   {
     "slug": "h06-session-storage",
@@ -110,11 +110,11 @@
   {
     "slug": "h06a-session-search",
     "locale": "zh",
-    "kind": "chapter",
+    "kind": "bridge",
     "title": "h06a — Session Search：为什么检索历史会话不只是“数据库查询”",
     "summary": "> 这页是 `h06` 的延伸。主线章节讲了 SQLite + FTS5 如何保存和搜索 session；这份 bridge doc 要强调另一层关键理解：**当 `session_search` 被 agent 主动调用时，它不再只是数据层查询，而变成了 agent 的内部回忆机制。**",
     "fileName": "h06a-session-search.md",
-    "version": "h06"
+    "version": null
   },
   {
     "slug": "h07-memory-system",
@@ -128,11 +128,11 @@
   {
     "slug": "h07a-memory-vs-session",
     "locale": "zh",
-    "kind": "chapter",
+    "kind": "bridge",
     "title": "h07a — Memory vs Session：为什么“存下完整历史”不等于“形成长期记忆”",
     "summary": "> 这页是 `h07` 的延伸。主线章节已经说明了 `MEMORY.md` / `USER.md` 的作用；这份 bridge doc 要把另一个最容易混淆的边界讲清楚：**session storage 和 memory system 虽然都在“保存过去”，但它们保存的不是同一种东西。**",
     "fileName": "h07a-memory-vs-session.md",
-    "version": "h07"
+    "version": null
   },
   {
     "slug": "h08-skills-system",
@@ -146,11 +146,11 @@
   {
     "slug": "h08a-skill-injection-boundary",
     "locale": "zh",
-    "kind": "chapter",
+    "kind": "bridge",
     "title": "h08a — Skill Injection Boundary：为什么 skill 是操作指南，而不是 system prompt 的延长线",
     "summary": "> 这页是 `h08` 的延伸。主线章节已经解释了 skill 为什么用 user message 注入；这份 bridge doc 继续把边界往前推一步：**skill 和 system prompt、memory、plugin 看起来都在“影响 agent 行为”，但它们作用的层级完全不同。**",
     "fileName": "h08a-skill-injection-boundary.md",
-    "version": "h08"
+    "version": null
   },
   {
     "slug": "h09-approval-permission",
@@ -164,11 +164,11 @@
   {
     "slug": "h09a-approval-pipeline",
     "locale": "zh",
-    "kind": "chapter",
+    "kind": "bridge",
     "title": "h09a — Approval Pipeline：为什么权限系统必须放在调度层而不是工具内部",
     "summary": "> 这页是 `h09` 的延伸。主线章节已经给出了 deny → check → allow → ask 的四段 pipeline；这份 bridge doc 继续回答一个更底层的问题：**为什么 Hermes 要把权限判断放在工具调度层，而不是让每个工具自己决定什么算危险。**",
     "fileName": "h09a-approval-pipeline.md",
-    "version": "h09"
+    "version": null
   },
   {
     "slug": "h10-error-recovery",
@@ -182,11 +182,11 @@
   {
     "slug": "h10a-fallback-taxonomy",
     "locale": "zh",
-    "kind": "chapter",
+    "kind": "bridge",
     "title": "h10a — Fallback Taxonomy：为什么 retry、fallback、continuation 不是同一种补救动作",
     "summary": "> 这页是 `h10` 的延伸。主线章节已经讲了错误分类和 `fallback_providers`；这份 bridge doc 要再往前走一步：**当一次调用失败时，系统真正需要区分的不是“要不要重试”，而是“失败属于哪一层，以及下一步该在哪一层补救”。**",
     "fileName": "h10a-fallback-taxonomy.md",
-    "version": "h10"
+    "version": null
   },
   {
     "slug": "h11-cli-architecture",
@@ -198,6 +198,15 @@
     "version": "h11"
   },
   {
+    "slug": "h11a-command-registry-routing",
+    "locale": "zh",
+    "kind": "bridge",
+    "title": "h11a — Command Registry Routing：为什么 slash command 的关键不是“命令名”，而是统一路由描述",
+    "summary": "> 这页是 `h11` 的延伸。主线章节已经介绍了 `COMMAND_REGISTRY`；这份 bridge doc 要把更深一层的理解讲清楚：**slash command 真正统一的不是字符串匹配，而是“同一份命令描述如何在多端被路由、解析、执行”。**",
+    "fileName": "h11a-command-registry-routing.md",
+    "version": null
+  },
+  {
     "slug": "h12-gateway-system",
     "locale": "zh",
     "kind": "chapter",
@@ -205,6 +214,15 @@
     "summary": "> **核心洞察**：平台适配层 ≠ agent 逻辑——adapter 只负责格式转换，AIAgent 对平台完全无感。",
     "fileName": "h12-gateway-system.md",
     "version": "h12"
+  },
+  {
+    "slug": "h12a-session-routing",
+    "locale": "zh",
+    "kind": "bridge",
+    "title": "h12a — Session Routing：为什么 Gateway 的真正难点不是接平台，而是隔离会话",
+    "summary": "> 这页是 `h12` 的延伸。主线章节已经介绍了 `GatewayRunner` 和 `MessageEvent`；这份 bridge doc 要把真正的架构难点点出来：**Gateway 的核心挑战不是把消息接进来，而是把每条消息稳定地路由到正确的会话上下文。**",
+    "fileName": "h12a-session-routing.md",
+    "version": null
   },
   {
     "slug": "h13-cron-scheduler",
@@ -216,6 +234,15 @@
     "version": "h13"
   },
   {
+    "slug": "h13a-agentic-cron",
+    "locale": "zh",
+    "kind": "bridge",
+    "title": "h13a — Agentic Cron：为什么定时任务在 Hermes 里不是脚本调度，而是 agent 触发器",
+    "summary": "> 这页是 `h13` 的延伸。主线章节已经说明 cron job 会启动 fresh `AIAgent`；这份 bridge doc 要把这个设计再往前推一步：**Hermes 的 cron 不只是“按时执行任务”，而是“按时触发一次完整 agent 执行”。**",
+    "fileName": "h13a-agentic-cron.md",
+    "version": null
+  },
+  {
     "slug": "h14-hook-system",
     "locale": "zh",
     "kind": "chapter",
@@ -223,6 +250,15 @@
     "summary": "> **核心洞察**：hook 只能观察和注解，不能替代主循环的控制流——这是插件可扩展性的设计边界。",
     "fileName": "h14-hook-system.md",
     "version": "h14"
+  },
+  {
+    "slug": "h14a-hook-boundary",
+    "locale": "zh",
+    "kind": "bridge",
+    "title": "h14a — Hook Boundary：为什么 hook 能扩展行为，却不能接管主循环",
+    "summary": "> 这页是 `h14` 的延伸。主线章节已经强调 hook 只能观察和注解；这份 bridge doc 要把这个限制讲得更彻底：**hook 的价值恰恰建立在它“不能接管控制流”这条边界之上。**",
+    "fileName": "h14a-hook-boundary.md",
+    "version": null
   },
   {
     "slug": "h15-subagent-delegation",
@@ -234,6 +270,15 @@
     "version": "h15"
   },
   {
+    "slug": "h15a-budget-sharing",
+    "locale": "zh",
+    "kind": "bridge",
+    "title": "h15a — Budget Sharing：为什么 subagent 的真正约束是共享预算，而不是并发数量",
+    "summary": "> 这页是 `h15` 的延伸。主线章节已经讲了 `IterationBudget` 和上下文隔离；这份 bridge doc 要把另一个经常被低估的点讲清楚：**subagent 系统真正防失控的关键，不是开几个线程，而是父子 agent 是否共享同一份预算。**",
+    "fileName": "h15a-budget-sharing.md",
+    "version": null
+  },
+  {
     "slug": "h16-provider-runtime",
     "locale": "zh",
     "kind": "chapter",
@@ -241,6 +286,15 @@
     "summary": "> **核心洞察**：provider 抽象层不是 if-else——它是 `(provider, model) → (api_mode, key, url)` 的映射，支持 18+ provider。",
     "fileName": "h16-provider-runtime.md",
     "version": "h16"
+  },
+  {
+    "slug": "h16a-runtime-route",
+    "locale": "zh",
+    "kind": "bridge",
+    "title": "h16a — Runtime Route：为什么 provider runtime 真正统一的不是“厂商名”，而是 turn 级路由结果",
+    "summary": "> 这页是 `h16` 的延伸。主线章节已经讲了 `(provider, model) → api_mode` 的映射；这份 bridge doc 要把更深一层的运行时视角讲清楚：**Hermes 真正稳定的抽象，不是“我在用哪个 provider”，而是“这一轮调用最终被路由成什么样的 runtime route”。**",
+    "fileName": "h16a-runtime-route.md",
+    "version": null
   },
   {
     "slug": "h17-mcp-integration",
@@ -252,6 +306,15 @@
     "version": "h17"
   },
   {
+    "slug": "h17a-mcp-capability-layers",
+    "locale": "zh",
+    "kind": "bridge",
+    "title": "h17a — MCP Capability Layers：为什么 MCP 不只是“外部工具接入”",
+    "summary": "> 这页是 `h17` 的延伸。主线章节已经讲了 MCP 工具如何进入同一注册表；这份 bridge doc 要补上更完整的平台视角：**MCP 不只是外部工具目录，它其实是一组能力层，而 tools 只是最先进入主线的那个切面。**",
+    "fileName": "h17a-mcp-capability-layers.md",
+    "version": null
+  },
+  {
     "slug": "h18-plugin-system",
     "locale": "zh",
     "kind": "chapter",
@@ -261,6 +324,15 @@
     "version": "h18"
   },
   {
+    "slug": "h18a-plugin-boundary",
+    "locale": "zh",
+    "kind": "bridge",
+    "title": "h18a — Plugin Boundary：为什么 plugin 是能力装配层，而不是行为提示层",
+    "summary": "> 这页是 `h18` 的延伸。主线章节已经讲了 plugin 可以注册工具、hook、命令和 memory provider；这份 bridge doc 要把更底层的边界说透：**plugin 真正扩展的是 agent 的能力装配面，而不是像 skill 那样直接给模型加一段行为提示。**",
+    "fileName": "h18a-plugin-boundary.md",
+    "version": null
+  },
+  {
     "slug": "h19-rl-trajectories",
     "locale": "zh",
     "kind": "chapter",
@@ -268,5 +340,14 @@
     "summary": "> **核心洞察**：不是所有轨迹都值得训练——过滤和格式化才是数据生成流水线的核心。",
     "fileName": "h19-rl-trajectories.md",
     "version": "h19"
+  },
+  {
+    "slug": "h19a-training-data-boundary",
+    "locale": "zh",
+    "kind": "bridge",
+    "title": "h19a — Training Data Boundary：为什么轨迹收集的难点不是“能不能存下来”，而是“什么值得进入训练集”",
+    "summary": "> 这页是 `h19` 的延伸。主线章节已经讲了 trajectory recorder、batch runner 和 ShareGPT 格式；这份 bridge doc 要把训练数据视角下最关键的那条边界讲清楚：**agent 运行日志不等于训练样本，真正困难的是决定哪些轨迹值得被保留、过滤、压缩和学习。**",
+    "fileName": "h19a-training-data-boundary.md",
+    "version": null
   }
 ]

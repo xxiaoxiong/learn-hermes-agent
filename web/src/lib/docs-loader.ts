@@ -20,8 +20,8 @@ function docsDir(locale: string) {
 }
 
 function chapterVersionFromSlug(slug: string): Version | null {
-  const prefix = slug.slice(0, 3);
-  return /^h\d{2}$/.test(prefix) && slug[3] === "-" ? (prefix as Version) : null;
+  const match = slug.match(/^(h\d{2})-/);
+  return match ? (match[1] as Version) : null;
 }
 
 function parseDoc(fileName: string, locale: string): DocEntry | null {

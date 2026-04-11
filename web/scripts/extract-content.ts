@@ -1,16 +1,16 @@
 import fs from "fs";
 import path from "path";
-import { VERSION_META, VERSION_ORDER, type Version } from "../src/lib/constants";
+import { VERSION_META, VERSION_ORDER, type Version, type I18nStr } from "../src/lib/constants";
 
 type Locale = "zh" | "en";
 type SourceKind = "agents" | "snippets";
 
 interface VersionRecord {
   id: Version;
-  title: string;
-  subtitle: string;
-  coreAddition: string;
-  keyInsight: string;
+  title: I18nStr;
+  subtitle: I18nStr;
+  coreAddition: I18nStr;
+  keyInsight: I18nStr;
   layer: string;
   sourceType: "teaching" | "snippet";
   sourceKind: SourceKind;
@@ -107,7 +107,8 @@ function titleOf(markdown: string, fallback: string) {
 }
 
 function chapterVersionFromSlug(slug: string): Version | null {
-  return VERSION_ORDER.includes(slug.slice(0, 3) as Version) ? (slug.slice(0, 3) as Version) : null;
+  const match = slug.match(/^(h\d{2})-/);
+  return match ? (match[1] as Version) : null;
 }
 
 function collectVersions(): VersionRecord[] {

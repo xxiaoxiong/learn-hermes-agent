@@ -249,6 +249,7 @@ Next.js 构建 → 静态页面
 ### Phase 4: 中文文档（docs/zh/）
 
 > `h00-architecture-overview.md` 必须最先写，是所有后续章节的地图。
+> 章节 bridge doc 一旦完成，必须同步确保 `web/src/lib/bridge-docs.ts` 与 `npm run extract` 生成结果可见。
 
 - [x] `h00-architecture-overview.md`（Hermes 全景图：组件、数据流、文件依赖链）
 - [x] `h01-agent-loop.md`
@@ -274,13 +275,13 @@ Next.js 构建 → 静态页面
 - [ ] `data-structures.md`（核心数据结构速查）
 + [x] `glossary.md`（术语表）
 + [x] `data-structures.md`（核心数据结构速查）
-- [ ] Bridge docs（见各章节任务清单中的 Bridge doc 项）
++ [x] Bridge docs（已覆盖：h03a、h04a、h05a、h06a、h07a、h08a、h09a、h10a、h11a、h12a、h13a、h14a、h15a、h16a、h17a、h18a、h19a）
 
 ### Phase 5: 英文文档（docs/en/）
 
 - [ ] `h00-architecture-overview.md`
-- [ ] `h01-agent-loop.md` ~ `h06-session-storage.md`（Layer 1 核心 6 章，优先）
-- [ ] `h07-h19`（视进度补充）
+- [ ] `h01-agent-loop.md` ~ `h06-session-storage.md`（
+- [ ] `h07-h19`
 
 ### Phase 6: Web 平台可视化组件数据
 
@@ -539,6 +540,7 @@ Next.js 构建 → 静态页面
 - [ ] 讲解 Skin Engine（`skin_engine.py`）数据驱动 TUI 主题
 - [ ] Code 标签页：CommandDef 注册 + resolve 核心逻辑
 - [ ] Deep Dive: 架构图（COMMAND_REGISTRY 辐射多端）
+- [x] Bridge doc: `h11a-command-registry-routing.md`（命令字符串背后真正统一的是命令描述与路由对象）
 
 ---
 
@@ -555,6 +557,7 @@ Next.js 构建 → 静态页面
 - [ ] 讲解 DM pairing 授权机制（allowlist + pairing code）
 - [ ] Code 标签页：`GatewayRunner._handle_message()` 核心分发逻辑
 - [ ] Deep Dive: 数据流图（Platform Event → AIAgent → Delivery）
+- [x] Bridge doc: `h12a-session-routing.md`（Gateway 的核心是会话边界路由，不是平台接入数量）
 
 ---
 
@@ -571,6 +574,7 @@ Next.js 构建 → 静态页面
 - [ ] 讲解 delivery：结果发送到指定平台（与 Gateway 共用 delivery 层）
 - [ ] Code 标签页：scheduler tick + job 执行核心逻辑
 - [ ] Deep Dive: 与 learn-claude-code s14 Cron Scheduler 对比
+- [x] Bridge doc: `h13a-agentic-cron.md`（cron 是时间驱动的 agent trigger，而不是脚本调度）
 
 ---
 
@@ -587,6 +591,7 @@ Next.js 构建 → 静态页面
 - [ ] 讲解 hook 只能"观察和注解"，不能替代主循环控制流
 - [ ] Code 标签页：hook 注册 + 触发逻辑片段
 - [ ] Deep Dive: 与 learn-claude-code s08 Hook System 对比
+- [x] Bridge doc: `h14a-hook-boundary.md`（hook 的能力建立在不接管控制流这条边界上）
 
 ---
 
@@ -603,6 +608,7 @@ Next.js 构建 → 静态页面
 - [ ] 讲解 context isolation：子 agent 获得干净的 message 历史
 - [ ] Code 标签页：delegate spawn + budget sharing 核心逻辑
 - [ ] Deep Dive: 与 learn-claude-code s04 Subagent 对比
+- [x] Bridge doc: `h15a-budget-sharing.md`（delegation 的关键约束是共享预算而不是独立预算池）
 
 ---
 
@@ -619,6 +625,7 @@ Next.js 构建 → 静态页面
 - [ ] 讲解 `CredentialPool`（多账号轮换，负载均衡）
 - [ ] Code 标签页：mode resolution + credential resolution 核心逻辑
 - [ ] Deep Dive: 18+ provider 支持的架构图
+- [x] Bridge doc: `h16a-runtime-route.md`（provider runtime 真正统一的是 turn 级 route 结果，而不是厂商名）
 
 ---
 
@@ -634,6 +641,7 @@ Next.js 构建 → 静态页面
 - [ ] 讲解 scoped servers：不同 context / project 连接不同 MCP server
 - [ ] Code 标签页：MCP 动态工具注册逻辑片段
 - [ ] Deep Dive: 与 learn-claude-code s19 MCP & Plugin 对比
+- [x] Bridge doc: `h17a-mcp-capability-layers.md`（MCP 是能力层平台，tools 只是最先进入主线的一层）
 
 ---
 
@@ -649,6 +657,7 @@ Next.js 构建 → 静态页面
 - [ ] 讲解 memory provider 插件（专用类型，实现 `MemoryProvider` ABC）
 - [ ] Code 标签页：plugin 发现 + 加载 + PluginContext 核心逻辑
 - [ ] Deep Dive: plugin（注册工具/钩子）vs skill（注入操作指南）的边界
+- [x] Bridge doc: `h18a-plugin-boundary.md`（plugin 扩展能力装配层，skill 扩展行为提示层）
 
 ---
 
@@ -665,6 +674,7 @@ Next.js 构建 → 静态页面
 - [ ] 讲解 `trajectory_compressor.py` 数据清洗（过滤低质量轨迹）
 - [ ] Code 标签页：batch_runner 并发生成 + trajectory 保存逻辑
 - [ ] Deep Dive: 数据生成流水线图（任务分发 → agent 执行 → 过滤 → 导出）
+- [x] Bridge doc: `h19a-training-data-boundary.md`（训练难点不在日志保存，而在样本筛选与数据治理）
 
 ---
 
@@ -735,3 +745,33 @@ Phase 7: 生成数据 + 验收 + 部署（1-2天）
 | h17 | MCP tool 在 `tools/registry.py` 里如何与原生工具共存 | MCP 工具不是"外挂"——它进入同一个注册表，走同一条 dispatch 路径 | 连接一个 MCP server 并验证其工具在 agent 中可直接调用 |
 | h18 | `PluginContext.register_tool()` 和原生 `registry.register()` 的区别 | plugin 不是 skill——plugin 注册工具和钩子，skill 注入操作指南 | 写一个最小插件，注册一个工具，不修改任何 Hermes 核心文件 |
 | h19 | `trajectory_compressor.py` 的过滤规则 | 不是所有轨迹都值得训练——过滤和格式化才是数据生成的核心 | 用 batch_runner 生成 10 条轨迹并输出为 ShareGPT 格式 |
+
+---
+
+## 九、实施状态总结（最后更新）
+
+### 已完成
+
+| 模块 | 状态 | 说明 |
+|---|---|---|
+| Web 脚手架 | ✅ 完成 | Next.js 15 + TailwindCSS + next-intl + shiki |
+| h01-h06 教学 Python | ✅ 完成 | `agents/h01_agent_loop.py` ~ `agents/h06_session_storage.py` |
+| h07-h19 源码 snippets | ✅ 完成 | `snippets/h07_memory_system.py` ~ `snippets/h19_rl_trajectories.py` |
+| zh 文档 h01-h19 | ✅ 完成 | `docs/zh/h01-agent-loop.md` ~ `docs/zh/h19-rl-trajectories.md`（19 章） |
+| en 文档 h01-h19 | ✅ 完成 | `docs/en/h01-agent-loop.md` ~ `docs/en/h19-rl-trajectories.md`（19 章） |
+| Bridge docs zh+en | ✅ 完成 | 19 对 bridge docs（h03a ~ h19a），zh+en 各一份 |
+| 补充文档 | ✅ 完成 | `glossary.md`, `data-structures.md`, `h00-architecture-overview.md` |
+| Deep Dive 数据 | ✅ 完成 | `architecture-blueprints.ts`, `execution-flows.ts`, `design-decisions.ts`, `chapter-guides.ts` |
+| 可视化交互组件 | ✅ 完成 | `ExecutionFlowStepper`（带播放/暂停/步进动画） |
+| 国际化 i18n | ✅ 完成 | `zh.json` + `en.json` 完整覆盖所有页面（nav, home, chapter, layers, timeline, layersPage） |
+| 亮色/暗色主题兼容 | ✅ 完成 | `globals.css` 添加 80+ 条 light theme override（text/bg/border/hover/accent） |
+| Bridge Docs 面板 | ✅ 重构 | 从不协调布局改为 learn-claude-code 风格的简洁卡片式 |
+| 页面 i18n 改造 | ✅ 完成 | `page.tsx`, `timeline/page.tsx`, `layers/page.tsx`, `compare/page.tsx`, `docs/page.tsx`, `client.tsx` |
+| 构建验证 | ✅ 通过 | 129 页静态生成成功，无类型错误 |
+
+### 待办 / 可选优化
+
+- [ ] VERSION_META 的 title/subtitle/coreAddition/keyInsight 支持 en 翻译（当前仅 zh）
+- [ ] Compare 页面的 TEXT 对象迁移到 i18n message files（当前使用本地 locale 对象，功能正常）
+- [ ] Docs slug 页面的 copy 对象迁移到 i18n（当前使用本地 locale 对象，功能正常）
+- [ ] 更多章节可视化交互组件（如 Agent Loop 流程图动画、Architecture 可展开架构图）

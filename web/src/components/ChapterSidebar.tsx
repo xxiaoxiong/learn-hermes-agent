@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LAYER_ORDER, LAYERS, VERSION_META, type Layer, type Version } from "@/lib/constants";
+import { LAYER_ORDER, LAYERS, VERSION_META, pick, type Layer, type Version } from "@/lib/constants";
 
 interface Props {
   currentVersion: Version;
@@ -25,7 +25,7 @@ export function ChapterSidebar({ currentVersion, locale }: Props) {
             <div className="mb-1.5 flex items-center gap-2 px-2 py-1">
               <div className={`h-2 w-2 rounded-full ${colors.dot} opacity-70`} />
               <span className={`text-[10px] font-bold uppercase tracking-[0.13em] ${colors.heading}`}>
-                {layer.label}
+                {locale === "zh" ? layer.labelZh : layer.label}
               </span>
             </div>
             {/* Chapter links */}
@@ -48,7 +48,7 @@ export function ChapterSidebar({ currentVersion, locale }: Props) {
                     }`}>
                       {version}
                     </span>
-                    <span className="text-xs leading-snug">{meta.title}</span>
+                    <span className="text-xs leading-snug">{pick(meta.title, locale)}</span>
                   </Link>
                 );
               })}

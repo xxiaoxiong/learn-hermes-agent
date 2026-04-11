@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { VERSION_META, VERSION_ORDER, type Version } from "@/lib/constants";
+import { VERSION_META, VERSION_ORDER, pick, type Version } from "@/lib/constants";
 
 type LayerId = "core" | "hardening" | "runtime" | "platform";
 
@@ -128,8 +128,8 @@ export function CompareClient({ locale }: { locale: string }) {
         <p className="mt-3 max-w-3xl text-sm leading-7 text-white/50 md:text-base">{t.sub}</p>
 
         <div className="mt-8 grid gap-4 lg:grid-cols-[1fr_1fr_auto] lg:items-end">
-          <Picker label={t.a} value={a} onChange={(v) => setA(v as Version)} />
-          <Picker label={t.b} value={b} onChange={(v) => setB(v as Version)} />
+          <Picker label={t.a} value={a} onChange={(v) => setA(v as Version)} locale={locale} />
+          <Picker label={t.b} value={b} onChange={(v) => setB(v as Version)} locale={locale} />
           <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] px-4 py-3 text-sm text-white/40">
             <div className="font-mono text-xs text-white/25">Δ</div>
             <div className="mt-1 font-medium text-white/75">{distance}</div>
@@ -165,13 +165,13 @@ export function CompareClient({ locale }: { locale: string }) {
             <div className="mb-4 flex items-center justify-between gap-3">
               <div>
                 <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/25">{t.changed}</p>
-                <h2 className="mt-2 text-xl font-semibold text-white/90">{metaB.title}</h2>
+                <h2 className="mt-2 text-xl font-semibold text-white/90">{pick(metaB.title, locale)}</h2>
               </div>
               <span className={`rounded-full border px-3 py-1 text-xs ${BADGE[metaB.layer]}`}>{metaB.layer}</span>
             </div>
-            <Card label={t.add} value={metaB.coreAddition} color="text-emerald-300" />
+            <Card label={t.add} value={pick(metaB.coreAddition, locale)} color="text-emerald-300" />
             <div className="mt-4" />
-            <Card label={t.insight} value={metaB.keyInsight} color="text-white/75" />
+            <Card label={t.insight} value={pick(metaB.keyInsight, locale)} color="text-white/75" />
             <div className="mt-4 rounded-2xl border border-white/[0.06] bg-white/[0.03] p-4">
               <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/25">{t.source}</p>
               <div className="mt-3 flex flex-wrap gap-2">
@@ -219,12 +219,12 @@ export function CompareClient({ locale }: { locale: string }) {
   );
 }
 
-function Picker({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
+function Picker({ label, value, onChange, locale }: { label: string; value: string; onChange: (v: string) => void; locale: string }) {
   return (
     <label className="block">
       <span className="mb-2 block text-xs font-bold uppercase tracking-[0.18em] text-white/25">{label}</span>
       <select value={value} onChange={(e) => onChange(e.target.value)} className="w-full rounded-2xl border border-white/[0.08] bg-[#0f0f10] px-4 py-3 text-sm text-white outline-none transition-all hover:border-white/[0.12] focus:border-indigo-500/50">
-        {VERSION_ORDER.map((version) => <option key={version} value={version}>{version.toUpperCase()} — {VERSION_META[version].title}</option>)}
+        {VERSION_ORDER.map((version) => <option key={version} value={version}>{version.toUpperCase()} — {pick(VERSION_META[version].title, locale)}</option>)}
       </select>
     </label>
   );
@@ -249,8 +249,8 @@ function Chapter({ locale, label, version }: { locale: string; label: string; ve
         </div>
         <span className="text-white/18 transition-all group-hover:text-white/35">→</span>
       </div>
-      <h3 className="mt-4 text-lg font-semibold text-white/88 group-hover:text-white">{meta.title}</h3>
-      <p className="mt-2 text-sm leading-7 text-white/48">{meta.subtitle}</p>
+      <h3 className="mt-4 text-lg font-semibold text-white/88 group-hover:text-white">{pick(meta.title, locale)}</h3>
+      <p className="mt-2 text-sm leading-7 text-white/48">{pick(meta.subtitle, locale)}</p>
     </Link>
   );
 }

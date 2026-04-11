@@ -2,14 +2,22 @@
   "nav": {
     "home": "首页",
     "chapters": "章节",
-    "timeline": "时间线"
+    "timeline": "时间线",
+    "layers": "分层视图",
+    "compare": "章节对比",
+    "docs": "文档库"
   },
   "home": {
     "title": "Learn Hermes Agent",
     "subtitle": "从零理解一个生产级 AI Agent 的 19 个核心机制",
     "description": "本项目是 Hermes Agent 的配套教学课程。每章只增加一个新概念，循序渐进。",
     "startLearning": "开始学习",
-    "viewSource": "查看源码"
+    "viewSource": "查看源码",
+    "badge": "19 章 · 4 层 · Hermes Agent 原理剖析",
+    "teachingImpl": "教学实现",
+    "realSource": "真实源码",
+    "chapters": "{count} 章",
+    "footer": "Learn Hermes Agent · 从理解一个生产级 AI Agent 的 19 个核心机制"
   },
   "chapter": {
     "coreAddition": "核心新增",
@@ -24,12 +32,53 @@
     "teachingImpl": "教学实现",
     "realSource": "真实源码片段",
     "prev": "上一章",
-    "next": "下一章"
+    "next": "下一章",
+    "docPlaceholder": "文档正在编写中",
+    "sourceNotFound": "源码文件暂未找到",
+    "whatsNew": "这章真正新增了什么",
+    "handoffPath": "主回流路径",
+    "executionFlow": "执行流",
+    "designDecisions": "设计决策",
+    "whyLabel": "为什么这样做",
+    "tradeoffLabel": "代价 / 取舍",
+    "bridgeDocs": "延伸桥接阅读",
+    "bridgeDocsIntro": "如果你在这一章开始感觉主线和外围机制缠在一起，这些补充文档最适合拿来重新校准边界。",
+    "newTag": "新增"
   },
   "layers": {
-    "core": "Layer 1 — 核心单 Agent",
-    "hardening": "Layer 2 — 生产加固",
-    "runtime": "Layer 3 — 多平台运行时",
-    "platform": "Layer 4 — 高级平台能力"
+    "core": "核心单 Agent",
+    "hardening": "生产加固",
+    "runtime": "多平台运行时",
+    "platform": "高级平台能力"
+  },
+  "timeline": {
+    "badge": "19 章 · 4 层 · 顺序学习路径",
+    "title": "学习时间线",
+    "subtitle": "每章只引入一个新概念，循序渐进构建 Hermes Agent 的完整心智模型",
+    "teaching": "教学实现",
+    "source": "真实源码",
+    "startCta": "从第一章开始",
+    "nextLayer": "下一层"
+  },
+  "layersPage": {
+    "badge": "4 层架构 · 19 个机制",
+    "title": "四层分层视图",
+    "subtitle": "Hermes 的 19 个机制按「能做什么」分为 4 层，每层回答一个核心问题",
+    "chapters": "{count} 章",
+    "teaching": "教学",
+    "source": "源码",
+    "nextLayer": "下一层",
+    "questions": {
+      "core": "一个 agent 能做到什么最低限度？",
+      "hardening": "一个 agent 如何可靠工作？",
+      "runtime": "一个 agent 如何服务多个平台？",
+      "platform": "一个 agent 如何成为可扩展平台？"
+    },
+    "descriptions": {
+      "core": "消息循环、工具系统、任务规划、Prompt 组装、上下文压缩、会话存储——这 6 个机制是所有 agent 的共同基础。",
+      "hardening": "记忆系统、Skills、权限控制、错误恢复、CLI 架构——生产环境中必须解决的 5 个稳定性问题。",
+      "runtime": "Gateway 多平台接入、Cron 定时任务、Hook 扩展机制、子 Agent 委托——让 agent 走出 CLI 的 4 个能力。",
+      "platform": "Provider Runtime、MCP 工具集成、插件系统、RL 轨迹生成——让 Hermes 成为可扩展的 agent 平台的 4 个机制。"
+    }
   }
 }

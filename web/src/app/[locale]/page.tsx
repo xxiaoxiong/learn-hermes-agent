@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import { LAYER_ORDER, LAYERS, VERSION_META } from "@/lib/constants";
+import { LAYER_ORDER, LAYERS, VERSION_META, pick } from "@/lib/constants";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 type LayerId = "core" | "hardening" | "runtime" | "platform";
@@ -71,16 +71,16 @@ export default async function HomePage({
       <header className="sticky top-0 z-20 border-b border-white/[0.06] bg-[#080808]/80 backdrop-blur-xl">
         <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between px-6 py-3">
           <div className="flex items-center gap-2">
-            <div className="h-5 w-5 rounded bg-gradient-to-br from-indigo-500 to-purple-600" />
-            <span className="text-sm font-semibold tracking-tight">Learn Hermes Agent</span>
+            {/* <div className="h-5 w-5 rounded bg-gradient-to-br from-indigo-500 to-purple-600" /> */}
+            <span className="text-lg font-bold tracking-tight">Learn Hermes Agent</span>
           </div>
           <div className="flex items-center gap-3">
             {/* Extra nav links */}
             <div className="hidden sm:flex items-center gap-1">
-              <Link href={`/${locale}/timeline`} className="rounded-md px-2.5 py-1 text-xs text-white/35 hover:bg-white/5 hover:text-white/65 transition-all">时间线</Link>
-              <Link href={`/${locale}/layers`} className="rounded-md px-2.5 py-1 text-xs text-white/35 hover:bg-white/5 hover:text-white/65 transition-all">分层视图</Link>
-              <Link href={`/${locale}/compare`} className="rounded-md px-2.5 py-1 text-xs text-white/35 hover:bg-white/5 hover:text-white/65 transition-all">Compare</Link>
-              <Link href={`/${locale}/docs`} className="rounded-md px-2.5 py-1 text-xs text-white/35 hover:bg-white/5 hover:text-white/65 transition-all">Docs</Link>
+              <Link href={`/${locale}/timeline`} className="rounded-md px-2.5 py-1 text-xs text-white/35 hover:bg-white/5 hover:text-white/65 transition-all">{t("nav.timeline")}</Link>
+              <Link href={`/${locale}/layers`} className="rounded-md px-2.5 py-1 text-xs text-white/35 hover:bg-white/5 hover:text-white/65 transition-all">{t("nav.layers")}</Link>
+              <Link href={`/${locale}/compare`} className="rounded-md px-2.5 py-1 text-xs text-white/35 hover:bg-white/5 hover:text-white/65 transition-all">{t("nav.compare")}</Link>
+              <Link href={`/${locale}/docs`} className="rounded-md px-2.5 py-1 text-xs text-white/35 hover:bg-white/5 hover:text-white/65 transition-all">{t("nav.docs")}</Link>
             </div>
             {/* Language switcher */}
             <div className="flex items-center gap-0.5 rounded-md border border-white/[0.06] p-0.5">
@@ -107,7 +107,7 @@ export default async function HomePage({
             </div>
             <ThemeToggle />
             <a
-              href="https://github.com/your-org/learn-hermes-agent"
+              href="https://github.com/xxiaoxiong/learn-hermes-agent"
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-md px-2.5 py-1 text-xs text-white/40 hover:bg-white/5 hover:text-white/70 transition-all"
@@ -128,7 +128,7 @@ export default async function HomePage({
           {/* Badge */}
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 text-xs text-white/50">
             <span className="h-1.5 w-1.5 rounded-full bg-indigo-400" />
-            19 章 · 4 层 · Hermes Agent 原理剖析
+            {t("home.badge")}
           </div>
 
           {/* Title */}
@@ -154,7 +154,7 @@ export default async function HomePage({
               <span style={{ opacity: 0.5 }}>→</span>
             </Link>
             <a
-              href="https://github.com/your-org/learn-hermes-agent"
+              href="https://github.com/xxiaoxiong/learn-hermes-agent"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-lg border border-white/15 px-5 py-2.5 text-sm font-semibold text-white/60 hover:border-white/30 hover:text-white/80 transition-all"
@@ -192,7 +192,7 @@ export default async function HomePage({
                   Layer {cfg.num} — {t(`layers.${layerId}`)}
                 </span>
                 <div className="flex-1 border-t border-white/[0.06]" />
-                <span className="text-xs text-white/20">{layer.versions.length} 章</span>
+                <span className="text-xs text-white/20">{t("home.chapters", { count: layer.versions.length })}</span>
               </div>
 
               {/* Chapter cards */}
@@ -211,23 +211,23 @@ export default async function HomePage({
                           {version.toUpperCase()}
                         </span>
                         <span className={`rounded-md px-2 py-0.5 text-[10px] font-medium ${cfg.badgeBg} ${cfg.badgeText}`}>
-                          {meta.sourceType === "teaching" ? "教学实现" : "真实源码"}
+                          {meta.sourceType === "teaching" ? t("home.teachingImpl") : t("home.realSource")}
                         </span>
                       </div>
 
                       {/* Title */}
                       <div>
                         <h3 className="font-semibold text-white/90 group-hover:text-white transition-colors leading-snug">
-                          {meta.title}
+                          {pick(meta.title, locale)}
                         </h3>
                         <p className="mt-1 text-sm text-white/40 leading-relaxed">
-                          {meta.subtitle}
+                          {pick(meta.subtitle, locale)}
                         </p>
                       </div>
 
                       {/* Core addition */}
                       <p className={`mt-auto font-mono text-xs ${cfg.additionColor}`}>
-                        + {meta.coreAddition}
+                        + {pick(meta.coreAddition, locale)}
                       </p>
 
                       {/* Arrow */}
@@ -246,7 +246,7 @@ export default async function HomePage({
 
       {/* ── Footer ── */}
       <footer className="border-t border-white/[0.06] px-6 py-8 text-center text-xs text-white/20">
-        <p>Learn Hermes Agent · 从理解一个生产级 AI Agent 的 19 个核心机制</p>
+        <p>{t("home.footer")}</p>
       </footer>
     </div>
   );

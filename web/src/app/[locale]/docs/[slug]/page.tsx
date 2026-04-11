@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { marked } from "marked";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { VERSION_META, type Version } from "@/lib/constants";
+import { VERSION_META, pick, type Version } from "@/lib/constants";
 import {
   getBridgeDocMeta,
   getChaptersForBridgeDoc,
@@ -113,7 +113,7 @@ export default async function DocPage({
                           className="group rounded-full border border-white/[0.08] bg-white/[0.04] px-3.5 py-2 text-sm text-white/58 transition-all hover:border-white/16 hover:bg-white/[0.07] hover:text-white"
                         >
                           <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-white/35 group-hover:text-white/50">{version}</span>
-                          <span className="ml-2">{VERSION_META[version].title}</span>
+                          <span className="ml-2">{pick(VERSION_META[version].title, locale)}</span>
                         </Link>
                       ))}
                     </div>

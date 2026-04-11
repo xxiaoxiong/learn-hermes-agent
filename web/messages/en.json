@@ -2,14 +2,22 @@
   "nav": {
     "home": "Home",
     "chapters": "Chapters",
-    "timeline": "Timeline"
+    "timeline": "Timeline",
+    "layers": "Layers",
+    "compare": "Compare",
+    "docs": "Docs"
   },
   "home": {
     "title": "Learn Hermes Agent",
     "subtitle": "Understand 19 core mechanisms of a production AI agent",
     "description": "A structured teaching companion for Hermes Agent. One new concept per chapter.",
     "startLearning": "Start Learning",
-    "viewSource": "View Source"
+    "viewSource": "View Source",
+    "badge": "19 Chapters · 4 Layers · Hermes Agent Deep Dive",
+    "teachingImpl": "Teaching",
+    "realSource": "Real Source",
+    "chapters": "{count} chapters",
+    "footer": "Learn Hermes Agent · Understanding 19 core mechanisms of a production AI agent"
   },
   "chapter": {
     "coreAddition": "Core Addition",
@@ -24,12 +32,53 @@
     "teachingImpl": "Teaching Implementation",
     "realSource": "Real Source Snippet",
     "prev": "Previous",
-    "next": "Next"
+    "next": "Next",
+    "docPlaceholder": "Documentation is being written",
+    "sourceNotFound": "Source file not found yet",
+    "whatsNew": "What This Chapter Actually Adds",
+    "handoffPath": "Primary Handoff Path",
+    "executionFlow": "Execution Flow",
+    "designDecisions": "Design Decisions",
+    "whyLabel": "Why",
+    "tradeoffLabel": "Tradeoff",
+    "bridgeDocs": "Bridge Docs",
+    "bridgeDocsIntro": "If this chapter is where the mainline and supporting mechanisms begin to blur, these bridge docs are the best reset points.",
+    "newTag": "NEW"
   },
   "layers": {
-    "core": "Layer 1 — Core Single-Agent",
-    "hardening": "Layer 2 — Production Hardening",
-    "runtime": "Layer 3 — Multi-Platform Runtime",
-    "platform": "Layer 4 — Advanced Platform"
+    "core": "Core Single-Agent",
+    "hardening": "Production Hardening",
+    "runtime": "Multi-Platform Runtime",
+    "platform": "Advanced Platform"
+  },
+  "timeline": {
+    "badge": "19 Chapters · 4 Layers · Sequential Learning Path",
+    "title": "Learning Timeline",
+    "subtitle": "One new concept per chapter, progressively building a complete mental model of Hermes Agent",
+    "teaching": "Teaching",
+    "source": "Real Source",
+    "startCta": "Start from chapter one",
+    "nextLayer": "Next layer"
+  },
+  "layersPage": {
+    "badge": "4-Layer Architecture · 19 Mechanisms",
+    "title": "Four-Layer Architecture",
+    "subtitle": "19 mechanisms of Hermes organized into 4 layers, each answering one core question",
+    "chapters": "{count} chapters",
+    "teaching": "Teaching",
+    "source": "Source",
+    "nextLayer": "Next layer",
+    "questions": {
+      "core": "What is the bare minimum an agent can do?",
+      "hardening": "How does an agent work reliably?",
+      "runtime": "How does an agent serve multiple platforms?",
+      "platform": "How does an agent become an extensible platform?"
+    },
+    "descriptions": {
+      "core": "Message loop, tool system, task planning, prompt assembly, context compression, session storage — the 6 mechanisms shared by all agents.",
+      "hardening": "Memory system, skills, permissions, error recovery, CLI architecture — 5 stability problems that must be solved in production.",
+      "runtime": "Gateway multi-platform access, cron scheduling, hook extension, subagent delegation — 4 capabilities that take an agent beyond CLI.",
+      "platform": "Provider runtime, MCP tool integration, plugin system, RL trajectory generation — 4 mechanisms that make Hermes an extensible agent platform."
+    }
   }
 }

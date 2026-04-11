@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import { VERSION_ORDER, VERSION_META, LAYERS, type Version } from "@/lib/constants";
+import { VERSION_ORDER, VERSION_META, LAYERS, pick, type Version } from "@/lib/constants";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 type LayerId = "core" | "hardening" | "runtime" | "platform";
@@ -51,7 +51,7 @@ export default async function TimelinePage({
             <div className="h-4 w-4 rounded bg-gradient-to-br from-indigo-500 to-purple-600" />
             <span className="hidden sm:inline">Learn Hermes Agent</span>
           </Link>
-          <span className="text-sm font-medium text-white/60">时间线</span>
+          <span className="text-sm font-medium text-white/60">{t("nav.timeline")}</span>
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-0.5 rounded-md border border-white/[0.06] p-0.5">
               <Link href={`/en/timeline`} className={`rounded px-2 py-0.5 text-xs transition-all ${locale === "en" ? "bg-white/[0.08] text-white/80" : "text-white/30 hover:text-white/60"}`}>EN</Link>
@@ -67,10 +67,10 @@ export default async function TimelinePage({
         <div className="mx-auto max-w-2xl">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 text-xs text-white/40">
             <span className="h-1.5 w-1.5 rounded-full bg-indigo-400" />
-            19 章 · 4 层 · 顺序学习路径
+            {t("timeline.badge")}
           </div>
-          <h1 className="mb-3 text-3xl font-bold tracking-tight text-white">学习时间线</h1>
-          <p className="text-white/40">每章只引入一个新概念，循序渐进构建 Hermes Agent 的完整心智模型</p>
+          <h1 className="mb-3 text-3xl font-bold tracking-tight text-white">{t("timeline.title")}</h1>
+          <p className="text-white/40">{t("timeline.subtitle")}</p>
         </div>
       </section>
 
@@ -82,7 +82,7 @@ export default async function TimelinePage({
           {(["core", "hardening", "runtime", "platform"] as LayerId[]).map((id) => (
             <div key={id} className="flex items-center gap-1.5">
               <div className={`h-1.5 w-1.5 rounded-full ${LAYER_DOT[id]}`} />
-              <span>{LAYERS[id].labelZh}</span>
+              <span>{t(`layers.${id}`)}</span>
             </div>
           ))}
         </div>
@@ -117,14 +117,14 @@ export default async function TimelinePage({
                       <div className="flex items-center gap-2 mb-1">
                         <span className="font-mono text-[10px] text-white/25">{version.toUpperCase()}</span>
                         <span className={`rounded px-1.5 py-0.5 text-[10px] font-medium ${badge.bg} ${badge.text}`}>
-                          {meta.sourceType === "teaching" ? "教学实现" : "真实源码"}
+                          {meta.sourceType === "teaching" ? t("timeline.teaching") : t("timeline.source")}
                         </span>
                       </div>
                       <h3 className="font-medium text-white/80 group-hover:text-white transition-colors leading-snug">
-                        {meta.title}
+                        {pick(meta.title, locale)}
                       </h3>
                       <p className="mt-0.5 text-sm text-white/35 leading-relaxed line-clamp-1">
-                        {meta.coreAddition}
+                        {pick(meta.coreAddition, locale)}
                       </p>
                     </div>
 
@@ -137,7 +137,7 @@ export default async function TimelinePage({
                     <div className="my-4 ml-9 flex items-center gap-3">
                       <div className={`h-px flex-1 ${LAYER_LINE[VERSION_META[VERSION_ORDER[idx + 1]].layer as LayerId]}`} />
                       <span className="text-[10px] font-medium uppercase tracking-widest text-white/15">
-                        Layer {["core", "hardening", "runtime", "platform"].indexOf(VERSION_META[VERSION_ORDER[idx + 1]].layer as LayerId) + 1}
+                        {t("timeline.nextLayer")}
                       </span>
                       <div className={`h-px flex-1 ${LAYER_LINE[VERSION_META[VERSION_ORDER[idx + 1]].layer as LayerId]}`} />
                     </div>
@@ -150,7 +150,7 @@ export default async function TimelinePage({
 
         {/* Bottom CTA */}
         <div className="mt-12 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 text-center">
-          <p className="mb-3 text-sm text-white/40">从第一章开始</p>
+          <p className="mb-3 text-sm text-white/40">{t("timeline.startCta")}</p>
           <Link
             href={`/${locale}/h01`}
             className="inline-flex items-center gap-2 rounded-lg border border-white/15 px-5 py-2.5 text-sm font-medium text-white/60 hover:border-white/30 hover:text-white/90 transition-all"

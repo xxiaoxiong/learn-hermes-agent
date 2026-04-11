@@ -1,14 +1,12 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import { LAYER_ORDER, LAYERS, VERSION_META, type Version } from "@/lib/constants";
+import { LAYER_ORDER, LAYERS, VERSION_META, pick, type Version } from "@/lib/constants";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 type LayerId = "core" | "hardening" | "runtime" | "platform";
 
 const LAYER_CONFIG: Record<LayerId, {
   num: string;
-  question: string;
-  desc: string;
   dotColor: string;
   labelColor: string;
   cardBorder: string;
@@ -20,8 +18,6 @@ const LAYER_CONFIG: Record<LayerId, {
 }> = {
   core: {
     num: "01",
-    question: "一个 agent 能做到什么最低限度？",
-    desc: "消息循环、工具系统、任务规划、Prompt 组装、上下文压缩、会话存储——这 6 个机制是所有 agent 的共同基础。",
     dotColor: "bg-blue-400",
     labelColor: "text-blue-400",
     cardBorder: "border-white/[0.06]",
@@ -33,8 +29,6 @@ const LAYER_CONFIG: Record<LayerId, {
   },
   hardening: {
     num: "02",
-    question: "一个 agent 如何可靠工作？",
-    desc: "记忆系统、Skills、权限控制、错误恢复、CLI 架构——生产环境中必须解决的 5 个稳定性问题。",
     dotColor: "bg-amber-400",
     labelColor: "text-amber-400",
     cardBorder: "border-white/[0.06]",
@@ -46,8 +40,6 @@ const LAYER_CONFIG: Record<LayerId, {
   },
   runtime: {
     num: "03",
-    question: "一个 agent 如何服务多个平台？",
-    desc: "Gateway 多平台接入、Cron 定时任务、Hook 扩展机制、子 Agent 委托——让 agent 走出 CLI 的 4 个能力。",
     dotColor: "bg-emerald-400",
     labelColor: "text-emerald-400",
     cardBorder: "border-white/[0.06]",
@@ -59,8 +51,6 @@ const LAYER_CONFIG: Record<LayerId, {
   },
   platform: {
     num: "04",
-    question: "一个 agent 如何成为可扩展平台？",
-    desc: "Provider Runtime、MCP 工具集成、插件系统、RL 轨迹生成——让 Hermes 成为可扩展的 agent 平台的 4 个机制。",
     dotColor: "bg-purple-400",
     labelColor: "text-purple-400",
     cardBorder: "border-white/[0.06]",
@@ -97,7 +87,7 @@ export default async function LayersPage({
             <div className="h-4 w-4 rounded bg-gradient-to-br from-indigo-500 to-purple-600" />
             <span className="hidden sm:inline">Learn Hermes Agent</span>
           </Link>
-          <span className="text-sm font-medium text-white/60">分层视图</span>
+          <span className="text-sm font-medium text-white/60">{t("nav.layers")}</span>
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-0.5 rounded-md border border-white/[0.06] p-0.5">
               <Link href={`/en/layers`} className={`rounded px-2 py-0.5 text-xs transition-all ${locale === "en" ? "bg-white/[0.08] text-white/80" : "text-white/30 hover:text-white/60"}`}>EN</Link>
@@ -113,10 +103,10 @@ export default async function LayersPage({
         <div className="mx-auto max-w-2xl">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 text-xs text-white/40">
             <span className="h-1.5 w-1.5 rounded-full bg-indigo-400" />
-            4 层架构 · 19 个机制
+            {t("layersPage.badge")}
           </div>
-          <h1 className="mb-3 text-3xl font-bold tracking-tight text-white">四层分层视图</h1>
-          <p className="text-white/40">Hermes 的 19 个机制按"能做什么"分为 4 层，每层回答一个核心问题</p>
+          <h1 className="mb-3 text-3xl font-bold tracking-tight text-white">{t("layersPage.title")}</h1>
+          <p className="text-white/40">{t("layersPage.subtitle")}</p>
         </div>
       </section>
 
@@ -141,14 +131,14 @@ export default async function LayersPage({
                         Layer {cfg.num}
                       </span>
                       <span className="text-xs text-white/20">·</span>
-                      <span className="text-xs text-white/35">{layer.labelZh}</span>
+                      <span className="text-xs text-white/35">{t(`layers.${layerId}`)}</span>
                     </div>
-                    <p className={`text-base font-semibold text-white/80 mb-2`}>{cfg.question}</p>
-                    <p className="text-sm text-white/40 leading-relaxed max-w-xl">{cfg.desc}</p>
+                    <p className={`text-base font-semibold text-white/80 mb-2`}>{t(`layersPage.questions.${lid}`)}</p>
+                    <p className="text-sm text-white/40 leading-relaxed max-w-xl">{t(`layersPage.descriptions.${lid}`)}</p>
                   </div>
                   <div className="flex-shrink-0">
                     <span className={`inline-flex rounded-lg px-3 py-1.5 text-xs font-medium ${cfg.badgeBg} ${cfg.badgeText}`}>
-                      {layer.versions.length} 章
+                      {t("layersPage.chapters", { count: layer.versions.length })}
                     </span>
                   </div>
                 </div>
@@ -169,15 +159,15 @@ export default async function LayersPage({
                           {version.toUpperCase()}
                         </span>
                         <span className={`rounded px-1.5 py-0.5 text-[10px] font-medium ${cfg.badgeBg} ${cfg.badgeText}`}>
-                          {meta.sourceType === "teaching" ? "教学" : "源码"}
+                          {meta.sourceType === "teaching" ? t("layersPage.teaching") : t("layersPage.source")}
                         </span>
                       </div>
                       <div>
                         <h3 className="font-semibold text-white/85 group-hover:text-white transition-colors text-sm leading-snug">
-                          {meta.title}
+                          {pick(meta.title, locale)}
                         </h3>
                         <p className="mt-1 text-xs text-white/35 leading-relaxed line-clamp-2">
-                          {meta.keyInsight}
+                          {pick(meta.keyInsight, locale)}
                         </p>
                       </div>
                       <span className="absolute right-3 top-1/2 -translate-y-1/2 text-white/10 transition-all group-hover:right-2.5 group-hover:text-white/25">→</span>
@@ -191,7 +181,7 @@ export default async function LayersPage({
                 <div className="mt-6 flex items-center justify-center">
                   <div className="flex flex-col items-center gap-1 text-white/15">
                     <div className="h-6 w-px bg-white/[0.06]" />
-                    <span className="text-[10px] uppercase tracking-widest">下一层</span>
+                    <span className="text-[10px] uppercase tracking-widest">{t("layersPage.nextLayer")}</span>
                     <div className="h-6 w-px bg-white/[0.06]" />
                   </div>
                 </div>
