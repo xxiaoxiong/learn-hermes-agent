@@ -1,6 +1,14 @@
-# h04 — Prompt Assembly: 5-Tier Section Dynamic System Prompt Construction
+# h04 — Prompt Assembly: Three Cache-Aware Tiers
 
 > **Core Insight**: The system prompt is not a hard-coded string — it is dynamically assembled at runtime from files and state, with each section having its own priority and condition.
+
+> **v0.19 calibration:** current Hermes organizes the cached system prompt as `stable → context → volatile`. The runnable chapter keeps five `PromptSection` categories as a hands-on teaching model; it is not a line-for-line copy of upstream classes.
+
+| v0.19 tier | Typical content |
+|---|---|
+| `stable` | identity, tool/model guidance, skills index, environment and platform hints |
+| `context` | caller system message and project context files such as `AGENTS.md` |
+| `volatile` | MEMORY/USER snapshots, external memory, timestamp and session/model/provider data |
 
 ---
 

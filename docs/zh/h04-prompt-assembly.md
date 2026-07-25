@@ -1,6 +1,14 @@
-# h04 — Prompt Assembly：5 层 section 按优先级动态组装 system prompt
+# h04 — Prompt Assembly：三层缓存边界与动态组装
 
 > **核心洞察**：system prompt 不是一次性写死的字符串——它是运行时根据文件和状态动态构建的，每层 section 有独立的优先级和条件。
+
+> **v0.19 校准**：当前 Hermes 上游把缓存 system prompt 明确分为 `stable → context → volatile` 三个有序 tier。本章示例代码保留 5 类 `PromptSection` 作为更容易动手理解的教学模型；它不是对上游类结构的逐行复刻。
+
+| v0.19 tier | 典型内容 |
+|---|---|
+| `stable` | identity、工具/模型指导、skills index、环境与平台提示 |
+| `context` | caller system message、`.hermes.md` / `AGENTS.md` 等项目上下文 |
+| `volatile` | MEMORY / USER 快照、外部记忆、时间与 session/model/provider 信息 |
 
 ---
 

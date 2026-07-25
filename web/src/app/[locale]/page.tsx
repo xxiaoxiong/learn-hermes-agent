@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { LAYER_ORDER, LAYERS, VERSION_META, pick } from "@/lib/constants";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
-type LayerId = "core" | "hardening" | "runtime" | "platform";
+type LayerId = "core" | "hardening" | "runtime" | "platform" | "operations";
 
 const LAYER_CONFIG: Record<LayerId, {
   num: string;
@@ -55,6 +55,16 @@ const LAYER_CONFIG: Record<LayerId, {
     badgeText: "text-purple-300",
     additionColor: "text-purple-300/70",
   },
+  operations: {
+    num: "05",
+    dotColor: "bg-rose-400",
+    labelColor: "text-rose-400",
+    cardBorder: "border-white/[0.06]",
+    cardHoverBorder: "hover:border-rose-500/40",
+    badgeBg: "bg-rose-500/10",
+    badgeText: "text-rose-300",
+    additionColor: "text-rose-300/70",
+  },
 };
 
 export default async function HomePage({
@@ -77,6 +87,7 @@ export default async function HomePage({
           <div className="flex items-center gap-3">
             {/* Extra nav links */}
             <div className="hidden sm:flex items-center gap-1">
+              <Link href={`/${locale}/latest`} className="rounded-md bg-rose-500/10 px-2.5 py-1 text-xs text-rose-300 hover:bg-rose-500/15 transition-all">{t("nav.latest")}</Link>
               <Link href={`/${locale}/timeline`} className="rounded-md px-2.5 py-1 text-xs text-white/35 hover:bg-white/5 hover:text-white/65 transition-all">{t("nav.timeline")}</Link>
               <Link href={`/${locale}/layers`} className="rounded-md px-2.5 py-1 text-xs text-white/35 hover:bg-white/5 hover:text-white/65 transition-all">{t("nav.layers")}</Link>
               <Link href={`/${locale}/compare`} className="rounded-md px-2.5 py-1 text-xs text-white/35 hover:bg-white/5 hover:text-white/65 transition-all">{t("nav.compare")}</Link>
@@ -153,6 +164,12 @@ export default async function HomePage({
               {t("home.startLearning")}
               <span style={{ opacity: 0.5 }}>→</span>
             </Link>
+            <Link
+              href={`/${locale}/latest`}
+              className="inline-flex items-center gap-2 rounded-lg border border-rose-500/30 bg-rose-500/10 px-5 py-2.5 text-sm font-semibold text-rose-200 hover:border-rose-400/50 hover:bg-rose-500/15 transition-all"
+            >
+              {t("nav.latest")}
+            </Link>
             <a
               href="https://github.com/xxiaoxiong/learn-hermes-agent"
               target="_blank"
@@ -165,7 +182,7 @@ export default async function HomePage({
 
           {/* Layer indicators */}
           <div className="mt-12 flex flex-wrap items-center justify-center gap-6 text-xs text-white/30">
-            {(["core", "hardening", "runtime", "platform"] as LayerId[]).map((id) => (
+            {(["core", "hardening", "runtime", "platform", "operations"] as LayerId[]).map((id) => (
               <div key={id} className="flex items-center gap-1.5">
                 <div className={`h-1.5 w-1.5 rounded-full ${LAYER_CONFIG[id].dotColor}`} />
                 <span>{t(`layers.${id}`)}</span>
@@ -211,7 +228,7 @@ export default async function HomePage({
                           {version.toUpperCase()}
                         </span>
                         <span className={`rounded-md px-2 py-0.5 text-[10px] font-medium ${cfg.badgeBg} ${cfg.badgeText}`}>
-                          {meta.sourceType === "teaching" ? t("home.teachingImpl") : t("home.realSource")}
+                          {meta.sourceType === "teaching" ? t("home.teachingImpl") : meta.sourceType === "architecture" ? t("home.architectureRef") : t("home.realSource")}
                         </span>
                       </div>
 

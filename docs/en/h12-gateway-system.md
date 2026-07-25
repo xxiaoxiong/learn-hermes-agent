@@ -1,4 +1,4 @@
-# h12 — Gateway System: GatewayRunner Unified Access for 15 Platforms
+# h12 — Gateway System: GatewayRunner Unified Access for 20 Platforms
 
 > **Core Insight**: The platform adapter layer ≠ agent logic — the adapter only handles format conversion; AIAgent is completely unaware of the platform.
 

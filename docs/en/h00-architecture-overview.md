@@ -1,4 +1,4 @@
-# h00 — Hermes Agent Architecture Overview
+# h00 — Hermes Agent v0.19.0 Architecture Overview
 
 > This is the map for the entire course. Before diving into any chapter, build a mental picture of Hermes as a whole.
 
@@ -6,19 +6,22 @@
 
 ## 1. What Is Hermes
 
-Hermes Agent is a **production-grade AI Agent framework** with the following core capabilities:
+Hermes Agent is a **self-improving, long-running production AI agent system**. This course is aligned with v0.19.0, released July 20, 2026:
 
 - Interact with the OS and network through tools (bash, file I/O, HTTP requests)
-- Gateway integration for 15+ messaging platforms (Telegram, Discord, Slack…)
-- Multi-model / multi-provider runtime (OpenAI, Anthropic, OpenRouter…)
+- 70+ tools across roughly 28 toolsets and six terminal backends
+- 20 Gateway platform adapters
+- 18+ providers, three API modes, and 300+ selectable models
 - Full session persistence and context compression
-- Multiple extension surfaces: plugins, skills, MCP
+- Profiles, skills, memory, MCP, plugins, and context engines
+- Delegation, multi-agent Kanban, Cron, and durable delivery
+- One core across CLI, TUI, Desktop, Gateway, ACP, API Server, and Python Library
 
 ---
 
-## 2. Four-Layer Architecture
+## 2. Five-Layer Architecture
 
-Hermes' 19 core mechanisms are organized into 4 layers, each addressing a distinct class of problems:
+Hermes' 24 core mechanisms are organized into 5 layers:
 
 ```
 Layer 1: Core Single-Agent      h01 – h06
@@ -36,6 +39,10 @@ Layer 3: Multi-Platform Runtime h12 – h15
 Layer 4: Advanced Platform      h16 – h19
   "Becoming an extensible platform"
   Provider Runtime → MCP → Plugins → RL Trajectories
+
+Layer 5: Orchestration & Ops    h20 – h24
+  "Running multiple agents and surfaces reliably"
+  Profiles → Kanban → ACP/Surfaces → Smart Security → Durable Delivery
 ```
 
 ---
@@ -48,8 +55,8 @@ Layer 4: Advanced Platform      h16 – h19
 |---|---|
 | `run_agent.py` | `AIAgent` class: message loop, tool dispatch, budget control |
 | `tools/registry.py` | `ToolRegistry`: schema + handler registry |
-| `agent/prompt_builder.py` | `PromptBuilder`: 5-tier section dynamic assembly of system prompt |
-| `agent/context_compressor.py` | `ContextCompressor`: context compression strategy |
+| `agent/prompt_builder.py` | `stable → context → volatile` prompt assembly |
+| `agent/context_compressor.py` | Context compression and prompt caching |
 | `hermes_state.py` | `HermesState`: SQLite session persistence + FTS5 |
 
 ### 3.2 Production Hardening
@@ -66,7 +73,7 @@ Layer 4: Advanced Platform      h16 – h19
 | File | Purpose |
 |---|---|
 | `gateway/run.py` | `GatewayRunner`: message dispatch main loop |
-| `gateway/platforms/` | Platform adapters (Telegram, Discord, Slack…) |
+| `gateway/platforms/` | 20 platform adapters |
 | `cron/scheduler.py` | Scheduled task scheduler |
 | `gateway/hooks.py` | HookEvent lifecycle management |
 | `tools/delegate_tool.py` | Subagent spawn + budget sharing |

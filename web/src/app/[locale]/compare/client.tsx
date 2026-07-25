@@ -4,13 +4,14 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { VERSION_META, VERSION_ORDER, pick, type Version } from "@/lib/constants";
 
-type LayerId = "core" | "hardening" | "runtime" | "platform";
+type LayerId = "core" | "hardening" | "runtime" | "platform" | "operations";
 
 const BADGE: Record<LayerId, string> = {
   core: "bg-blue-500/12 text-blue-300 border-blue-500/20",
   hardening: "bg-amber-500/12 text-amber-300 border-amber-500/20",
   runtime: "bg-emerald-500/12 text-emerald-300 border-emerald-500/20",
   platform: "bg-purple-500/12 text-purple-300 border-purple-500/20",
+  operations: "bg-rose-500/12 text-rose-300 border-rose-500/20",
 };
 
 const PRESETS: { a: Version; b: Version }[] = [
@@ -19,6 +20,8 @@ const PRESETS: { a: Version; b: Version }[] = [
   { a: "h11", b: "h12" },
   { a: "h15", b: "h16" },
   { a: "h18", b: "h19" },
+  { a: "h19", b: "h20" },
+  { a: "h23", b: "h24" },
 ];
 
 const TEXT = {

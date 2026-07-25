@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { LAYER_ORDER, LAYERS, VERSION_META, pick, type Version } from "@/lib/constants";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
-type LayerId = "core" | "hardening" | "runtime" | "platform";
+type LayerId = "core" | "hardening" | "runtime" | "platform" | "operations";
 
 const LAYER_CONFIG: Record<LayerId, {
   num: string;
@@ -59,6 +59,17 @@ const LAYER_CONFIG: Record<LayerId, {
     badgeText: "text-purple-300",
     glowColor: "bg-purple-600/8",
     lineColor: "border-purple-500/20",
+  },
+  operations: {
+    num: "05",
+    dotColor: "bg-rose-400",
+    labelColor: "text-rose-400",
+    cardBorder: "border-white/[0.06]",
+    cardHoverBorder: "hover:border-rose-500/40",
+    badgeBg: "bg-rose-500/10",
+    badgeText: "text-rose-300",
+    glowColor: "bg-rose-600/8",
+    lineColor: "border-rose-500/20",
   },
 };
 
@@ -159,7 +170,7 @@ export default async function LayersPage({
                           {version.toUpperCase()}
                         </span>
                         <span className={`rounded px-1.5 py-0.5 text-[10px] font-medium ${cfg.badgeBg} ${cfg.badgeText}`}>
-                          {meta.sourceType === "teaching" ? t("layersPage.teaching") : t("layersPage.source")}
+                          {meta.sourceType === "teaching" ? t("layersPage.teaching") : meta.sourceType === "architecture" ? t("layersPage.architecture") : t("layersPage.source")}
                         </span>
                       </div>
                       <div>

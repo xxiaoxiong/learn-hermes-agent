@@ -3,13 +3,14 @@ import { getTranslations } from "next-intl/server";
 import { VERSION_ORDER, VERSION_META, LAYERS, pick, type Version } from "@/lib/constants";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
-type LayerId = "core" | "hardening" | "runtime" | "platform";
+type LayerId = "core" | "hardening" | "runtime" | "platform" | "operations";
 
 const LAYER_DOT: Record<LayerId, string> = {
   core: "bg-blue-400",
   hardening: "bg-amber-400",
   runtime: "bg-emerald-400",
   platform: "bg-purple-400",
+  operations: "bg-rose-400",
 };
 
 const LAYER_LINE: Record<LayerId, string> = {
@@ -17,6 +18,7 @@ const LAYER_LINE: Record<LayerId, string> = {
   hardening: "bg-amber-500/30",
   runtime: "bg-emerald-500/30",
   platform: "bg-purple-500/30",
+  operations: "bg-rose-500/30",
 };
 
 const LAYER_BADGE: Record<LayerId, { bg: string; text: string }> = {
@@ -24,6 +26,7 @@ const LAYER_BADGE: Record<LayerId, { bg: string; text: string }> = {
   hardening: { bg: "bg-amber-500/10", text: "text-amber-300" },
   runtime: { bg: "bg-emerald-500/10", text: "text-emerald-300" },
   platform: { bg: "bg-purple-500/10", text: "text-purple-300" },
+  operations: { bg: "bg-rose-500/10", text: "text-rose-300" },
 };
 
 export function generateStaticParams() {
@@ -79,7 +82,7 @@ export default async function TimelinePage({
         <div className="mx-auto w-full max-w-[880px]">
           {/* Layer legend */}
         <div className="mb-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-white/30">
-          {(["core", "hardening", "runtime", "platform"] as LayerId[]).map((id) => (
+          {(["core", "hardening", "runtime", "platform", "operations"] as LayerId[]).map((id) => (
             <div key={id} className="flex items-center gap-1.5">
               <div className={`h-1.5 w-1.5 rounded-full ${LAYER_DOT[id]}`} />
               <span>{t(`layers.${id}`)}</span>
@@ -117,7 +120,7 @@ export default async function TimelinePage({
                       <div className="flex items-center gap-2 mb-1">
                         <span className="font-mono text-[10px] text-white/25">{version.toUpperCase()}</span>
                         <span className={`rounded px-1.5 py-0.5 text-[10px] font-medium ${badge.bg} ${badge.text}`}>
-                          {meta.sourceType === "teaching" ? t("timeline.teaching") : t("timeline.source")}
+                          {meta.sourceType === "teaching" ? t("timeline.teaching") : meta.sourceType === "architecture" ? t("timeline.architecture") : t("timeline.source")}
                         </span>
                       </div>
                       <h3 className="font-medium text-white/80 group-hover:text-white transition-colors leading-snug">

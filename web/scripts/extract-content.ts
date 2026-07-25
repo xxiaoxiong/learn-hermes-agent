@@ -12,14 +12,16 @@ interface VersionRecord {
   coreAddition: I18nStr;
   keyInsight: I18nStr;
   layer: string;
-  sourceType: "teaching" | "snippet";
+  sourceType: "teaching" | "snippet" | "architecture";
   sourceKind: SourceKind;
   sourceFile: string;
   sourceExists: boolean;
   sourceLineCount: number;
   sourceCharCount: number;
+  source: string;
   hermesSource: string[];
   docFiles: Partial<Record<Locale, string>>;
+  docContent: Partial<Record<Locale, string>>;
 }
 
 interface DocRecord {
@@ -30,6 +32,7 @@ interface DocRecord {
   summary: string;
   fileName: string;
   version: Version | null;
+  markdown: string;
 }
 
 const WEB_ROOT = path.resolve(__dirname, "..");
@@ -57,6 +60,11 @@ const SOURCE_FILE_MAP: Record<Version, string> = {
   h17: "snippets/h17_mcp_protocol.py",
   h18: "snippets/h18_plugin_system.py",
   h19: "snippets/h19_rl_training.py",
+  h20: "snippets/h20_profiles.py",
+  h21: "snippets/h21_multi_agent_kanban.py",
+  h22: "snippets/h22_acp_surfaces.py",
+  h23: "snippets/h23_smart_security.py",
+  h24: "snippets/h24_durable_delivery.py",
 };
 
 const DOC_FILE_MAP: Record<Version, string> = {
@@ -79,6 +87,11 @@ const DOC_FILE_MAP: Record<Version, string> = {
   h17: "h17-mcp-integration.md",
   h18: "h18-plugin-system.md",
   h19: "h19-rl-trajectories.md",
+  h20: "h20-profile-isolation.md",
+  h21: "h21-multi-agent-kanban.md",
+  h22: "h22-acp-surfaces.md",
+  h23: "h23-smart-security.md",
+  h24: "h24-durable-delivery.md",
 };
 
 function readIfExists(filePath: string) {
@@ -135,10 +148,15 @@ function collectVersions(): VersionRecord[] {
       sourceExists: Boolean(source),
       sourceLineCount: source ? source.split(/\r?\n/).length : 0,
       sourceCharCount: source.length,
+      source,
       hermesSource: meta.hermesSource,
       docFiles: {
         zh: zhDoc ? path.posix.join("docs", "zh", docFile) : undefined,
         en: enDoc ? path.posix.join("docs", "en", docFile) : undefined,
+      },
+      docContent: {
+        zh: zhDoc ?? undefined,
+        en: enDoc ?? undefined,
       },
     };
   });
@@ -167,6 +185,7 @@ function collectDocs(): DocRecord[] {
         summary: summarize(markdown),
         fileName,
         version,
+        markdown,
       });
     }
   }

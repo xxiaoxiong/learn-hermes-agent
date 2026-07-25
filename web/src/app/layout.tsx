@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Learn Hermes Agent",
-  description: "Understand 19 core mechanisms of a production AI agent",
+  description: "Understand 24 core mechanisms of Hermes Agent v0.19.0",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

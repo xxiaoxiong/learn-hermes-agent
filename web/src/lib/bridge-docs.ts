@@ -36,6 +36,7 @@ const FULL_CHAPTER_SET: Version[] = [
   "h07", "h08", "h09", "h10", "h11",
   "h12", "h13", "h14", "h15",
   "h16", "h17", "h18", "h19",
+  "h20", "h21", "h22", "h23", "h24",
 ];
 
 const BRIDGE_DEFINITIONS: Record<string, Omit<BridgeDocMeta, "title" | "summary"> & {
@@ -47,8 +48,8 @@ const BRIDGE_DEFINITIONS: Record<string, Omit<BridgeDocMeta, "title" | "summary"
     kind: "overview",
     badge: { zh: "课程地图", en: "Course Map" },
     whenToRead: {
-      zh: "适合在刚进入课程、章节关系开始混淆，或需要重新校准 19 章全局位置时回看。",
-      en: "Best when starting the course, when chapter boundaries blur, or when you need to re-anchor the full 19-chapter map.",
+      zh: "适合在刚进入课程、章节关系开始混淆，或需要重新校准 24 章全局位置时回看。",
+      en: "Best when starting the course, when chapter boundaries blur, or when you need to re-anchor the full 24-chapter map.",
     },
     relatedVersions: FULL_CHAPTER_SET,
     relatedDocSlugs: ["glossary", "data-structures"],

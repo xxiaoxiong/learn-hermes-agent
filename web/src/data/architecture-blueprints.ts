@@ -484,4 +484,70 @@ export const ARCH_BLUEPRINTS: Record<Version, ArchBlueprint> = {
       l("trajectory_compressor 转换为 ShareGPT 格式，写入训练集", "trajectory_compressor converts to ShareGPT format and writes to training set"),
     ],
   },
+  h20: {
+    summary: l("Profile 将 Agent 身份与全部 Hermes 状态绑定到 HERMES_HOME，同时把工具工作目录与宿主 HOME 作为独立概念管理。", "Profiles bind agent identity and all Hermes state to HERMES_HOME while treating tool cwd and host HOME as separate concerns."),
+    slices: {
+      control: [
+        { name: l("Profile Resolver", "Profile Resolver"), detail: l("把 -p <name> 解析成独立的 HERMES_HOME。", "Resolves -p <name> into an isolated HERMES_HOME."), fresh: true },
+        { name: l("Profile Router", "Profile Router"), detail: l("Gateway 可按 guild/channel/thread 把消息路由到不同 profile。", "Gateway can route guilds, channels, or threads to different profiles."), fresh: true },
+      ],
+      state: [
+        { name: l("Profile State", "Profile State"), detail: l("config、memory、sessions、skills、secrets、cron、logs 全部按 profile 隔离。", "Config, memory, sessions, skills, secrets, cron, and logs are isolated per profile."), fresh: true },
+      ],
+      lanes: [
+        { name: l("Tool Environment", "Tool Environment"), detail: l("cwd 与 OS HOME 默认独立于 profile；严格隔离可启用 terminal.home_mode=profile。", "cwd and OS HOME are separate by default; strict isolation uses terminal.home_mode=profile."), fresh: true },
+      ],
+    },
+    handoff: [l("入口选择 profile", "Surface selects a profile"), l("Resolver 设置 HERMES_HOME 并加载隔离状态", "Resolver sets HERMES_HOME and loads isolated state"), l("同一 AIAgent 内核以不同身份独立运行", "The same AIAgent core runs independently under each identity")],
+  },
+  h21: {
+    summary: l("Kanban 把一次性 delegation 提升为持久任务图：编排器自动拆解，worker lane 并行执行，worktree 隔离代码，最终综合结果。", "Kanban lifts one-off delegation into a durable task graph: automatic decomposition, parallel worker lanes, worktree isolation, and final synthesis."),
+    slices: {
+      control: [
+        { name: l("Orchestrator", "Orchestrator"), detail: l("拆目标、建依赖、分配模型与验收条件。", "Decomposes goals, builds dependencies, and assigns models and acceptance criteria."), fresh: true },
+        { name: l("Task Graph", "Task Graph"), detail: l("持久记录 ready / running / blocked / done 状态。", "Persists ready, running, blocked, and done states."), fresh: true },
+      ],
+      lanes: [
+        { name: l("Worker Lanes", "Worker Lanes"), detail: l("多个 worker 在隔离上下文中并行推进。", "Multiple workers progress concurrently in isolated contexts."), fresh: true },
+        { name: l("Worktree per Task", "Worktree per Task"), detail: l("代码任务拥有独立工作树，降低相互覆盖。", "Code tasks receive isolated worktrees to reduce collisions."), fresh: true },
+      ],
+      state: [{ name: l("Durable Board State", "Durable Board State"), detail: l("进程重启后任务所有权与产出仍可恢复。", "Task ownership and outputs survive process restarts."), fresh: true }],
+    },
+    handoff: [l("目标进入 orchestrator 自动拆解", "Goal enters orchestrator for automatic decomposition"), l("ready tasks 分配到 worker lanes", "Ready tasks are assigned to worker lanes"), l("完成项回到父级做验证与综合", "Completed items return to the parent for validation and synthesis")],
+  },
+  h22: {
+    summary: l("CLI、TUI、Desktop、Gateway、ACP、API Server 与 Python Library 都是同一 AIAgent 的入口适配器。", "CLI, TUI, Desktop, Gateway, ACP, API Server, and the Python library are adapters over the same AIAgent."),
+    slices: {
+      lanes: [
+        { name: l("CLI / TUI / Desktop", "CLI / TUI / Desktop"), detail: l("本地交互面，消费同一流式事件。", "Local interactive surfaces consuming the same streaming events."), fresh: true },
+        { name: l("Gateway / API", "Gateway / API"), detail: l("消息平台与 HTTP 入口。", "Messaging-platform and HTTP entry points."), fresh: true },
+        { name: l("ACP Adapter", "ACP Adapter"), detail: l("通过 stdio/JSON-RPC 服务 VS Code、Zed、JetBrains。", "Serves VS Code, Zed, and JetBrains over stdio/JSON-RPC."), fresh: true },
+      ],
+      mainline: [{ name: l("AIAgent Core", "AIAgent Core"), detail: l("统一处理 prompt、provider、tools、compression 与 persistence。", "Uniformly handles prompts, providers, tools, compression, and persistence.") }],
+    },
+    handoff: [l("客户端事件由 surface adapter 规范化", "Surface adapter normalizes the client event"), l("请求进入 AIAgent.run_conversation()", "Request enters AIAgent.run_conversation()"), l("统一事件流被映射回原客户端", "Unified events are mapped back to the originating client")],
+  },
+  h23: {
+    summary: l("v0.19 的安全控制面把智能审批、不可绕过的用户 deny 规则与可插拔密码库 SecretSource 合并到统一执行边界。", "The v0.19 security control plane combines smart approvals, non-bypassable user deny rules, and pluggable vault-backed SecretSource providers at one execution boundary."),
+    slices: {
+      control: [
+        { name: l("Policy Gate", "Policy Gate"), detail: l("user deny 优先，之后才允许 exact-command 智能审批。", "User deny rules take precedence before exact-command smart review."), fresh: true },
+        { name: l("Smart Reviewer", "Smart Reviewer"), detail: l("独立模型只审查当前具体命令，不产生永久放行。", "An independent model reviews only the exact command and grants no permanent allow."), fresh: true },
+      ],
+      state: [{ name: l("SecretSource Registry", "SecretSource Registry"), detail: l("Bitwarden、1Password 等来源按确定优先级解析并记录 provenance。", "Bitwarden, 1Password, and other sources resolve with deterministic precedence and provenance."), fresh: true }],
+    },
+    handoff: [l("工具调用先命中 deny / allow 策略", "Tool call first hits deny/allow policy"), l("需要判断时交给独立 smart reviewer", "Ambiguous calls go to an independent smart reviewer"), l("所需密钥从受控 SecretSource 注入执行环境", "Required secrets are injected from controlled SecretSource providers")],
+  },
+  h24: {
+    summary: l("投递义务账本关闭了“已经生成但平台尚未确认”这一崩溃窗口；子 Agent 转录与后台结果也采用可恢复记录。", "The delivery-obligation ledger closes the crash window between generation and platform acknowledgement; subagent transcripts and background results are recoverable too."),
+    slices: {
+      mainline: [{ name: l("Final Response", "Final Response"), detail: l("生成完成后不直接视为任务完成。", "Generation is not treated as task completion.") }],
+      state: [
+        { name: l("Delivery Ledger", "Delivery Ledger"), detail: l("发送前写入 state.db，携带幂等键和目标平台。", "Written to state.db before sending, with idempotency key and target platform."), fresh: true },
+        { name: l("Subagent Transcript", "Subagent Transcript"), detail: l("每个 child 的工具调用、结果与流式输出都有可跟踪日志。", "Each child's tool calls, results, and streaming output are tracked in a readable log."), fresh: true },
+      ],
+      lanes: [{ name: l("Platform Delivery", "Platform Delivery"), detail: l("成功 ack 后清账；失败或重启后安全重投。", "Clear on successful acknowledgement; safely retry after failure or restart."), fresh: true }],
+    },
+    handoff: [l("final response 先写入 delivery ledger", "Write final response to the delivery ledger first"), l("平台 adapter 发送并回报 ack", "Platform adapter sends and reports acknowledgement"), l("未确认义务在下一次启动时重放", "Unacknowledged obligations replay on the next startup")],
+  },
 };

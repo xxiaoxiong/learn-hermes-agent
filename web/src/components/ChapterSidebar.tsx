@@ -11,6 +11,7 @@ const LAYER_COLORS: Record<Layer, { dot: string; heading: string }> = {
   hardening: { dot: "bg-amber-500",   heading: "text-amber-400" },
   runtime:   { dot: "bg-emerald-500", heading: "text-emerald-400" },
   platform:  { dot: "bg-purple-500",  heading: "text-purple-400" },
+  operations:{ dot: "bg-rose-500",    heading: "text-rose-400" },
 };
 
 export function ChapterSidebar({ currentVersion, locale }: Props) {

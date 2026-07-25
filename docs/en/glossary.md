@@ -9,7 +9,7 @@
 
 If you're no longer just looking up words but starting to lose track of "which layer these terms live in and which structures they bind to," try reading these together:
 
-- First see [`h00-architecture-overview.md`](./h00-architecture-overview.md): Build the 19-chapter panoramic view.
+- First see [`h00-architecture-overview.md`](./h00-architecture-overview.md): Build the 24-chapter panoramic view.
 - Then see [`data-structures.md`](./data-structures.md): Map terms to their actual data structures.
 - If you're stuck on "what's the boundary between memory and session," revisit `h06` and `h07`.
 - If you're stuck on "skill, plugin, and MCP all seem like extension mechanisms," revisit `h08`, `h17`, `h18`.

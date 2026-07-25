@@ -9,7 +9,7 @@
 
 如果你已经不是单纯查词，而是开始分不清“这些词分别活在哪一层、和哪些结构绑定”，建议这样一起看：
 
-- 先看 [`h00-architecture-overview.md`](./h00-architecture-overview.md)：建立 19 章全景图。
+- 先看 [`h00-architecture-overview.md`](./h00-architecture-overview.md)：建立 24 章全景图。
 - 再看 [`data-structures.md`](./data-structures.md)：把这些词对应到真正落地的数据结构。
 - 如果你卡在“memory 和 session 到底有什么边界”，回看 `h06` 与 `h07`。
 - 如果你卡在“skill、plugin、MCP 都像扩展机制”，回看 `h08`、`h17`、`h18`。

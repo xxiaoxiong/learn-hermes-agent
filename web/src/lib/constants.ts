@@ -2,9 +2,10 @@ export type Version =
   | "h01" | "h02" | "h03" | "h04" | "h05" | "h06"
   | "h07" | "h08" | "h09" | "h10" | "h11"
   | "h12" | "h13" | "h14" | "h15"
-  | "h16" | "h17" | "h18" | "h19";
+  | "h16" | "h17" | "h18" | "h19"
+  | "h20" | "h21" | "h22" | "h23" | "h24";
 
-export type Layer = "core" | "hardening" | "runtime" | "platform";
+export type Layer = "core" | "hardening" | "runtime" | "platform" | "operations";
 
 export type I18nStr = { zh: string; en: string };
 
@@ -17,6 +18,7 @@ export const VERSION_ORDER: Version[] = [
   "h07", "h08", "h09", "h10", "h11",
   "h12", "h13", "h14", "h15",
   "h16", "h17", "h18", "h19",
+  "h20", "h21", "h22", "h23", "h24",
 ];
 
 export interface VersionMeta {
@@ -26,8 +28,8 @@ export interface VersionMeta {
   keyInsight: I18nStr;
   layer: Layer;
   /** h01-h06: agents/hXX_*.py (full teaching impl)
-   *  h07-h19: snippets/hXX_*.py (curated real source) */
-  sourceType: "teaching" | "snippet";
+   *  h07-h24: snippets/hXX_*.py (curated architecture sketch) */
+  sourceType: "teaching" | "snippet" | "architecture";
   /** Corresponding Hermes source file(s) */
   hermesSource: string[];
 }
@@ -62,8 +64,8 @@ export const VERSION_META: Record<Version, VersionMeta> = {
   },
   h04: {
     title: { zh: "Prompt 组装", en: "Prompt Assembly" },
-    subtitle: { zh: "5 层 section 按优先级动态组装 system prompt", en: "5-layer sections assembled dynamically by priority into system prompt" },
-    coreAddition: { zh: "PromptBuilder — 5 类 section 按优先级组装", en: "PromptBuilder — 5 section types assembled by priority" },
+    subtitle: { zh: "stable → context → volatile 三层缓存边界", en: "stable → context → volatile cache-aware tiers" },
+    coreAddition: { zh: "PromptBuilder — 三层缓存边界 + 教学版 5 类 section", en: "PromptBuilder — three cache tiers + five teaching sections" },
     keyInsight: { zh: 'system prompt 不是一次性写死的字符串——它是运行时根据文件和状态动态构建的', en: "The system prompt is not a hardcoded string — it's dynamically constructed at runtime based on files and state" },
     layer: "core",
     sourceType: "teaching",
@@ -134,7 +136,7 @@ export const VERSION_META: Record<Version, VersionMeta> = {
   },
   h12: {
     title: { zh: "网关系统", en: "Gateway System" },
-    subtitle: { zh: "GatewayRunner + platform adapter 统一接入 15 个平台", en: "GatewayRunner + platform adapter unified access for 15 platforms" },
+    subtitle: { zh: "GatewayRunner + platform adapter 统一接入 20 个平台", en: "GatewayRunner + platform adapters unify 20 platforms" },
     coreAddition: { zh: "GatewayRunner — on_message → MessageEvent 统一格式 + session routing", en: "GatewayRunner — on_message → MessageEvent unified format + session routing" },
     keyInsight: { zh: '平台适配层 ≠ agent 逻辑——adapter 只负责格式转换，AIAgent 对平台完全无感', en: "Platform adapter layer ≠ agent logic — adapter only handles format conversion, AIAgent is completely platform-agnostic" },
     layer: "runtime",
@@ -204,6 +206,51 @@ export const VERSION_META: Record<Version, VersionMeta> = {
     sourceType: "snippet",
     hermesSource: ["batch_runner.py", "agent/trajectory.py"],
   },
+  h20: {
+    title: { zh: "Profiles 隔离", en: "Profile Isolation" },
+    subtitle: { zh: "以 HERMES_HOME 为边界运行多个独立 Hermes", en: "Run multiple isolated Hermes instances through HERMES_HOME" },
+    coreAddition: { zh: "profile scope — config / memory / sessions / skills / secrets 全量隔离", en: "Profile scope — isolate config, memory, sessions, skills, and secrets" },
+    keyInsight: { zh: "Profile 不是工作目录别名——HERMES_HOME 才是 Agent 身份与状态的真正隔离边界", en: "A profile is not a working-directory alias — HERMES_HOME is the real identity and state boundary" },
+    layer: "operations",
+    sourceType: "architecture",
+    hermesSource: ["hermes_constants.py", "hermes_cli/profile_config.py", "gateway/profile_router.py"],
+  },
+  h21: {
+    title: { zh: "多 Agent Kanban", en: "Multi-Agent Kanban" },
+    subtitle: { zh: "自动拆解、worker lane、worktree 与结果综合", en: "Automatic decomposition, worker lanes, worktrees, and synthesis" },
+    coreAddition: { zh: "orchestrator → task graph → isolated workers → synthesis", en: "orchestrator → task graph → isolated workers → synthesis" },
+    keyInsight: { zh: "多 Agent 的难点不是并发数量，而是任务所有权、隔离、依赖与可恢复的结果汇合", en: "The hard part of multi-agent work is not concurrency count, but ownership, isolation, dependencies, and recoverable synthesis" },
+    layer: "operations",
+    sourceType: "architecture",
+    hermesSource: ["tools/delegate_tool.py", "kanban/", "gateway/kanban_worker.py"],
+  },
+  h22: {
+    title: { zh: "ACP 与多端入口", en: "ACP & Agent Surfaces" },
+    subtitle: { zh: "CLI、Gateway、Desktop、IDE 与 API 共用 AIAgent 核心", en: "CLI, Gateway, Desktop, IDE, and API share one AIAgent core" },
+    coreAddition: { zh: "surface adapters — ACP stdio/JSON-RPC + Desktop/TUI/Gateway 事件桥接", en: "Surface adapters — ACP stdio/JSON-RPC plus Desktop/TUI/Gateway event bridges" },
+    keyInsight: { zh: "Hermes 不是多个客户端各自实现 Agent——所有入口都收敛到同一个 AIAgent 编排内核", en: "Hermes does not reimplement the agent per client — every surface converges on the same AIAgent orchestration core" },
+    layer: "operations",
+    sourceType: "architecture",
+    hermesSource: ["acp_adapter/", "cli.py", "gateway/run.py", "desktop/"],
+  },
+  h23: {
+    title: { zh: "智能审批与 Secrets", en: "Smart Approvals & Secrets" },
+    subtitle: { zh: "LLM 风险复核、用户 deny 规则与密码库 SecretSource", en: "LLM risk review, user deny rules, and vault-backed SecretSource" },
+    coreAddition: { zh: "security control plane — exact-command review + deny rules + vault provenance", en: "Security control plane — exact-command review + deny rules + vault provenance" },
+    keyInsight: { zh: "安全不是一个确认弹窗——它是命令判定、不可绕过的 deny 规则、凭证来源与审计信息组成的控制面", en: "Security is not a confirmation dialog — it is a control plane of command judgment, non-bypassable deny rules, credential sources, and audit metadata" },
+    layer: "operations",
+    sourceType: "architecture",
+    hermesSource: ["tools/approval.py", "hermes_cli/secrets.py", "secret_sources/"],
+  },
+  h24: {
+    title: { zh: "可靠投递与可观测性", en: "Durable Delivery & Observability" },
+    subtitle: { zh: "投递义务账本、子 Agent 实时转录与崩溃恢复", en: "Delivery-obligation ledger, live subagent transcripts, and crash recovery" },
+    coreAddition: { zh: "durable ledger — record → send → acknowledge → retry", en: "Durable ledger — record → send → acknowledge → retry" },
+    keyInsight: { zh: "生成完成不等于任务完成——只有结果被确认投递、可追踪且能在重启后恢复，才算生产级闭环", en: "Generation complete is not task complete — production closure requires acknowledged delivery, traceability, and restart recovery" },
+    layer: "operations",
+    sourceType: "architecture",
+    hermesSource: ["gateway/delivery_obligations.py", "hermes_state.py", "tools/delegate_tool.py"],
+  },
 };
 
 export const LAYERS: Record<Layer, { label: string; labelZh: string; versions: Version[]; color: string }> = {
@@ -231,9 +278,15 @@ export const LAYERS: Record<Layer, { label: string; labelZh: string; versions: V
     versions: ["h16", "h17", "h18", "h19"],
     color: "purple",
   },
+  operations: {
+    label: "Orchestration & Operations",
+    labelZh: "编排与可靠运行",
+    versions: ["h20", "h21", "h22", "h23", "h24"],
+    color: "rose",
+  },
 };
 
-export const LAYER_ORDER: Layer[] = ["core", "hardening", "runtime", "platform"];
+export const LAYER_ORDER: Layer[] = ["core", "hardening", "runtime", "platform", "operations"];
 
 export const LEARNING_PATH = VERSION_ORDER.map((v) => ({
   version: v,

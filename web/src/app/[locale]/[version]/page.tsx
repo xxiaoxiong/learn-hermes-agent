@@ -18,7 +18,7 @@ export function generateStaticParams() {
   );
 }
 
-type LayerId = "core" | "hardening" | "runtime" | "platform";
+type LayerId = "core" | "hardening" | "runtime" | "platform" | "operations";
 
 const LAYER_THEME: Record<LayerId, {
   gradientFrom: string;
@@ -69,6 +69,16 @@ const LAYER_THEME: Record<LayerId, {
     badgeText: "text-purple-300",
     borderColor: "border-purple-500/20",
     glowColor: "bg-purple-600/10",
+  },
+  operations: {
+    gradientFrom: "from-rose-600/20",
+    gradientTo: "to-transparent",
+    dotColor: "bg-rose-400",
+    labelColor: "text-rose-400",
+    badgeBg: "bg-rose-500/15",
+    badgeText: "text-rose-300",
+    borderColor: "border-rose-500/20",
+    glowColor: "bg-rose-600/10",
   },
 };
 
@@ -182,7 +192,7 @@ export default async function VersionPage({
                   {t(`layers.${layerId}`)}
                 </div>
                 <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-white/40">
-                  {meta.sourceType === "teaching" ? t("chapter.teachingImpl") : t("chapter.realSource")}
+                  {meta.sourceType === "teaching" ? t("chapter.teachingImpl") : meta.sourceType === "architecture" ? t("chapter.architectureRef") : t("chapter.realSource")}
                 </span>
               </div>
               <h1 className="mb-2 text-3xl font-bold tracking-tight md:text-4xl">

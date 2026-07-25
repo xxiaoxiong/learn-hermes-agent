@@ -1,10 +1,10 @@
-# h12 — Gateway System：GatewayRunner 统一接入 15 个平台
+# h12 — Gateway System：GatewayRunner 统一接入 20 个平台
 
 > **核心洞察**：平台适配层 ≠ agent 逻辑——adapter 只负责格式转换，AIAgent 对平台完全无感。
 
 ---
 
-## 问题：如何让同一个 AIAgent 服务 15 个不同平台？
+## 问题：如何让同一个 AIAgent 服务 20 个不同平台？
 
 每个平台的消息格式不同：
 

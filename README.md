@@ -1,6 +1,6 @@
 # Learn Hermes Agent
 
-> Understand the 19 core mechanisms of a production AI agent, one chapter at a time
+> Understand the 24 core mechanisms of Hermes Agent v0.19.0, one chapter at a time
 
 [简体中文](./README-zh.md) | [English](./README.md)
 
@@ -8,12 +8,13 @@
 
 ## What is this?
 
-This is a structured teaching companion for [Hermes Agent](../hermes-agent/), a production-grade AI agent supporting multiple platforms, self-improvement, memory, skills, and scheduling.
+This is an independent teaching companion for [Hermes Agent](https://github.com/NousResearch/hermes-agent), aligned with **v0.19.0 (2026-07-20)** and its current multi-platform, self-improving, profile-isolated, multi-agent, durable-delivery architecture.
 
 Instead of reading the source directly:
 - Each core mechanism is isolated into **one chapter**
 - Layer 1 (h01–h06) provides **runnable minimal teaching implementations** (Python + OpenAI SDK)
-- Layer 2–4 (h07–h19) provides **curated real source snippets** with original line number annotations
+- Layer 2–4 (h07–h19) explains **curated source mechanisms**
+- Layer 5 (h20–h24) covers the **current v0.19 production architecture**
 
 ## Quick Start
 
@@ -47,6 +48,17 @@ python agents/h01_agent_loop.py
 | h17 | MCP Integration | Dynamic tool discovery + shared registry |
 | h18 | Plugin System | `PluginContext` API |
 | h19 | RL & Trajectories | ShareGPT trajectory generation + filtering |
+| h20 | Profile Isolation | `HERMES_HOME` identity and state boundary |
+| h21 | Multi-Agent Kanban | Task graph, worker lanes, worktrees, recovery |
+| h22 | ACP & Surfaces | CLI / Desktop / Gateway / IDE share AIAgent |
+| h23 | Smart Security | Smart approvals, user deny, SecretSource |
+| h24 | Durable Delivery | Obligation ledger, acknowledgement, recovery |
+
+## Current Sources
+
+- [Hermes Agent source](https://github.com/NousResearch/hermes-agent)
+- [Official architecture guide](https://hermes-agent.nousresearch.com/docs/developer-guide/architecture/)
+- [v0.19.0 release notes](https://github.com/NousResearch/hermes-agent/releases/tag/v2026.7.20)
 
 ## Environment Variables
 

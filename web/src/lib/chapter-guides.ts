@@ -24,7 +24,7 @@ export const CHAPTER_GUIDES: Record<Version, ChapterGuide> = {
     goal: { zh: "让 agent 把一个大目标拆成可追踪的小步骤", en: "Have the agent break a big goal into trackable small steps" },
   },
   h04: {
-    focus: { zh: "`PromptBuilder` 如何按优先级组装 5 类 section", en: "How `PromptBuilder` assembles 5 section types by priority" },
+    focus: { zh: "上游 `stable → context → volatile` 与教学版 5 类 section 如何对应", en: "How upstream `stable → context → volatile` maps to the five teaching sections" },
     confusion: { zh: "system prompt 不是一次性写死的字符串，它是运行时动态构建的", en: "The system prompt is not a hardcoded string — it's dynamically constructed at runtime" },
     goal: { zh: "修改一个 section 而不影响其他 section 的输出", en: "Modify one section without affecting the output of other sections" },
   },
@@ -102,5 +102,30 @@ export const CHAPTER_GUIDES: Record<Version, ChapterGuide> = {
     focus: { zh: "`trajectory_compressor.py` 的过滤规则", en: "The filtering rules in `trajectory_compressor.py`" },
     confusion: { zh: "不是所有轨迹都值得训练——过滤和格式化才是数据生成的核心", en: "Not all trajectories are worth training — filtering and formatting are the core of data generation" },
     goal: { zh: "用 batch_runner 生成 10 条轨迹并输出为 ShareGPT 格式", en: "Use batch_runner to generate 10 trajectories and output in ShareGPT format" },
+  },
+  h20: {
+    focus: { zh: "`HERMES_HOME` 与 `HOME` 分别隔离什么", en: "What `HERMES_HOME` and `HOME` isolate respectively" },
+    confusion: { zh: "Profile 不是 cwd，也不默认隔离宿主机 CLI 凭证", en: "A profile is not cwd and does not isolate host CLI credentials by default" },
+    goal: { zh: "为 work/personal 两个 Agent 设计不串数据的 profile 边界", en: "Design non-leaking work/personal profile boundaries" },
+  },
+  h21: {
+    focus: { zh: "orchestrator、worker lane、task dependency 与 worktree 的对应关系", en: "How orchestrator, worker lanes, task dependencies, and worktrees relate" },
+    confusion: { zh: "多开几个子 Agent 不等于拥有可靠的多 Agent 架构", en: "Spawning several subagents is not the same as a reliable multi-agent architecture" },
+    goal: { zh: "把一个复杂目标拆成可并行、可恢复、可综合的任务图", en: "Turn a complex goal into a parallel, recoverable, synthesizable task graph" },
+  },
+  h22: {
+    focus: { zh: "ACP adapter 如何把 IDE 请求桥接到 `AIAgent.run_conversation()`", en: "How the ACP adapter bridges IDE requests into `AIAgent.run_conversation()`" },
+    confusion: { zh: "Desktop、TUI、Gateway 和 ACP 是入口，不是四套 Agent 内核", en: "Desktop, TUI, Gateway, and ACP are surfaces, not four agent cores" },
+    goal: { zh: "画出任一客户端输入到统一 Agent Loop 的端到端路径", en: "Trace any client input end-to-end into the unified Agent Loop" },
+  },
+  h23: {
+    focus: { zh: "smart approval、user deny 与 SecretSource 的优先级边界", en: "The precedence boundaries among smart approval, user deny, and SecretSource" },
+    confusion: { zh: "智能审批只能判定一次具体命令，不能替代永久 allow/deny 策略", en: "Smart approval judges one exact command; it does not replace durable allow/deny policy" },
+    goal: { zh: "设计一条即使 yolo 模式也不能绕过的安全规则，并避免明文密钥", en: "Design a non-bypassable rule even in yolo mode and eliminate plaintext secrets" },
+  },
+  h24: {
+    focus: { zh: "结果写入 ledger、平台发送、ack 与重试的事务边界", en: "The transaction boundary across ledger write, platform send, ack, and retry" },
+    confusion: { zh: "模型已经生成 final response，不代表用户已经收到它", en: "A generated final response does not mean the user received it" },
+    goal: { zh: "解释 Gateway 在发送后崩溃时如何避免结果静默丢失", en: "Explain how the Gateway prevents silent loss when it crashes around delivery" },
   },
 };

@@ -1,6 +1,6 @@
 # Learn Hermes Agent
 
-> 从零理解一个生产级 AI Agent 的 19 个核心机制
+> 从零理解 Hermes Agent v0.19.0 的 24 个核心机制
 
 [English](./README.md) | [简体中文](./README-zh.md)
 
@@ -8,12 +8,13 @@
 
 ## 这是什么
 
-本项目是 [Hermes Agent](../hermes-agent/) 的配套教学课程。Hermes 是一个支持多平台、自我改进、具备记忆/技能/调度能力的生产级 AI agent。
+本项目是 [Hermes Agent](https://github.com/NousResearch/hermes-agent) 的独立教学课程。内容已对齐 **v0.19.0（2026-07-20）**，覆盖当前的多平台、自我改进、记忆、技能、Profiles、多 Agent 编排与可靠投递架构。
 
 与直接阅读源码不同，本项目：
 - 把 Hermes 的每个核心机制拆解为**独立的一章**
 - Layer 1（h01-h06）提供**可运行的最小教学实现**（Python + OpenAI SDK）
-- Layer 2-4（h07-h19）提供**精选真实源码片段**（含行号注释，可对照原始文件）
+- Layer 2-4（h07-h19）提供**精选源码机制解读**
+- Layer 5（h20-h24）覆盖 **v0.19 当前生产架构**
 - 每章只增加**一个新概念**，循序渐进
 
 ## 快速开始
@@ -71,6 +72,16 @@ python agents/h01_agent_loop.py
 | h18 | Plugin System | PluginContext API |
 | h19 | RL & Trajectories | ShareGPT 轨迹生成 + 过滤 |
 
+### Layer 5 — Orchestration & Operations（v0.19）
+
+| 章节 | 主题 | 核心新增 |
+|---|---|---|
+| h20 | Profiles | `HERMES_HOME` 身份与状态隔离 |
+| h21 | Multi-Agent Kanban | 任务图、worker lane、worktree、恢复 |
+| h22 | ACP & Surfaces | CLI / Desktop / Gateway / IDE 共用 AIAgent |
+| h23 | Smart Security | 智能审批、user deny、SecretSource |
+| h24 | Durable Delivery | 投递义务账本、ack、崩溃恢复 |
+
 ## 环境变量
 
 | 变量 | 说明 | 示例 |
@@ -99,6 +110,7 @@ learn-hermes-agent/
 
 ## 参考资料
 
-- [Hermes Agent 源码](../hermes-agent/)
-- [Hermes 架构文档](../hermes-agent/website/docs/developer-guide/architecture.md)
+- [Hermes Agent 源码](https://github.com/NousResearch/hermes-agent)
+- [Hermes 官方架构文档](https://hermes-agent.nousresearch.com/docs/developer-guide/architecture/)
+- [Hermes v0.19.0 发布说明](https://github.com/NousResearch/hermes-agent/releases/tag/v2026.7.20)
 - [Learn Claude Code（本项目的教学模型参考）](../learn-claude-code/)
