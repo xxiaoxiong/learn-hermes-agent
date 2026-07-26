@@ -16,6 +16,16 @@ Instead of reading the source directly:
 - Layer 2–4 (h07–h19) explains **curated source mechanisms**
 - Layer 5 (h20–h24) covers the **current v0.19 production architecture**
 
+## Safety
+
+> [!WARNING]
+> This repository contains educational implementations, not production-ready agent code. Some runnable chapters intentionally let the model invoke local shell commands so the agent loop remains easy to inspect. Do not run them with untrusted prompts or in a privileged environment.
+
+- Use a disposable workspace, least-privilege account, and constrained API key.
+- Never reuse production secrets in the examples.
+- Review tool calls before execution and add sandboxing/allowlists for any real deployment.
+- For production use, prefer the official [Hermes Agent](https://github.com/NousResearch/hermes-agent) runtime and its approval, permission, and isolation controls.
+
 ## Quick Start
 
 ```bash
